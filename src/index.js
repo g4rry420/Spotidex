@@ -1,13 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter } from "react-router-dom"
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 import './index.css';
 import App from './App';
+import MainContextProvider from "./context/mainContext/mainContext"
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+    <MainContextProvider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </MainContextProvider>
+  </React.StrictMode>
+  ,
   document.getElementById('root')
 );
 

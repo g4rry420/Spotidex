@@ -1,24 +1,23 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useContext } from 'react';
+import { Route, Switch } from "react-router-dom";
+
 import './App.css';
+import Homepage from "./pages/homepage/homepage.component"
+import Header from './components/header/header.component';
+import { MainContext } from './context/mainContext/mainContext';
 
 function App() {
+
+  const { token } = useContext(MainContext)
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    {
+      (token) ? <Header/> : null
+    }
+      <Switch>
+        <Route exact path="/" component={Homepage} />
+      </Switch>
     </div>
   );
 }

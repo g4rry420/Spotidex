@@ -1,0 +1,31 @@
+.hero-section{
+    min-height: calc(100vh - 0px);
+    background: linear-gradient(to top, rgba(0,45,75,0.4), rgba(0,0,0,0.7)),
+                url("../../assets/hero-image.jpg") no-repeat bottom;
+    background-size: cover;   
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.background{
+    background:rgba(47, 213, 102, 0.4);
+    border-radius: 10px;
+    box-shadow: 6px 6px 40px rgba(47, 213, 102, 0.4);
+    height: calc(100vh - 300px);
+    width: 40%;
+}
+.btn-login{
+    border: 1px solid white;
+}
+.btn-login a{
+    color: white;
+    text-decoration: none;
+}
+.btn-login:hover {
+    background: white;
+    transition: var(--mainT);
+}
+.btn-login:hover a{
+    color: var(--mainGreen);
+    transition: var(--mainT);
+}

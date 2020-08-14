@@ -1,0 +1,26 @@
+a{
+    color: var(--carbon);
+}
+nav{
+    background: #F3F5F7;
+}
+.navbar-logo a{
+    font-size: 1.7rem;
+    font-weight: 700;
+    line-height: 30px;
+    text-transform: uppercase;
+}
+.navbar-logo a:hover{
+    color: var(--mainGreen);
+    text-decoration: none;
+}
+.nav-list-desktop{
+    list-style-type: none;
+    width: 30%;
+}
+.nav-list-desktop a{
+    font-weight: 600;
+}
+.nav-list-desktop a:hover{
+    color: var(--mainGreen);
+}

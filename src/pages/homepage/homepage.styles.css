@@ -1,0 +1,34 @@
+.discover-heading{
+    background: var(--mainGreen);
+    color: white;
+    text-align: left;
+    margin: 0 -15px;
+}
+.discover-main-container{
+    background-color: #F3F5F7;
+}
+.discover-main-container .col-md-3{
+    max-width: 20%;
+}
+.discover-container{
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+.discover-container h4{
+    position: absolute;
+    color: white;
+    font-size: 0.9rem;
+}
+.discover-img-container{
+    width: 100%;
+}
+.discover-img-container img{
+    width: 100%;
+}
+.discover-container:hover, .discover-container:hover > h4{
+    filter: invert(10%);
+    color: var(--mainGreen);
+    text-decoration: underline;
+}
