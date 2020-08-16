@@ -1,6 +1,6 @@
 import React,{ createContext, useState,useEffect } from 'react'
 
-import { getCategories } from "../../api-fetching/api-fetching"
+import { getCategories, myPlaylist } from "../../api-fetching/api-fetching"
 
 
 // Get the hash of the url
@@ -31,21 +31,24 @@ const MainContextProvider = (props) => {
     ];
     
     const [token, setToken] = useState(null);
-    
     const [discover, setDiscover] = useState(null);
+    const [discoverPlaylist, setDiscoverPlaylist] = useState(null);
+    const [userPlaylist, setUserPlaylist] = useState(null);
+    const [ userPlaylistTracks ,setUserPlaylistTracks] = useState(null);
 
     useEffect(() => {
         let _token = hash.access_token;
         console.log(_token)
         setToken(_token);
         getCategories(token, setDiscover);
-        
+        myPlaylist(token, setUserPlaylist);
+
     }, [token])
 
 
     return (
         <MainContext.Provider 
-            value={{ discover,setDiscover, token,setToken, authEndPoint, clientId, redirectUri, scopes }}>
+            value={{ userPlaylistTracks, setUserPlaylistTracks, userPlaylist,discoverPlaylist,setDiscoverPlaylist,discover,setDiscover, token,setToken, authEndPoint, clientId, redirectUri, scopes }}>
             {props.children}
         </MainContext.Provider>
     )

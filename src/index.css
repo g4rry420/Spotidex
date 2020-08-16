@@ -1,9 +1,12 @@
 :root{
   --mainGreen: #2FD566;
   --mainT: all 0.3s linear;
-  --carbon:#4b4b4b
+  --carbon: #4b4b4b;
+  --bgColor: #F3F5F7;
 }
-
+html{
+  text-rendering: optimizeLegibility;
+}
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -16,4 +19,7 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+.container{
+  max-width: 1300px;
 }
