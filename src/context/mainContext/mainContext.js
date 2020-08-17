@@ -33,6 +33,8 @@ const MainContextProvider = (props) => {
     const [token, setToken] = useState(null);
     const [discover, setDiscover] = useState(null);
     const [discoverPlaylist, setDiscoverPlaylist] = useState(null);
+    const [discoverPlaylistTracks, setDiscoverPlaylistTracks] = useState(null);
+
     const [userPlaylist, setUserPlaylist] = useState(null);
     const [ userPlaylistTracks ,setUserPlaylistTracks] = useState(null);
 
@@ -48,7 +50,7 @@ const MainContextProvider = (props) => {
 
     return (
         <MainContext.Provider 
-            value={{ userPlaylistTracks, setUserPlaylistTracks, userPlaylist,discoverPlaylist,setDiscoverPlaylist,discover,setDiscover, token,setToken, authEndPoint, clientId, redirectUri, scopes }}>
+            value={{ discoverPlaylistTracks, setDiscoverPlaylistTracks,userPlaylistTracks, setUserPlaylistTracks, userPlaylist,discoverPlaylist,setDiscoverPlaylist,discover,setDiscover, token,setToken, authEndPoint, clientId, redirectUri, scopes }}>
             {props.children}
         </MainContext.Provider>
     )

@@ -70,7 +70,7 @@ export const myPlaylistTracks = async (token, playlist_id, setUserPlaylistTracks
     return data;
 }
 
-export const fetchAnything = async (token, fetchURL) => {
+export const fetchAnything = async (token, fetchURL, setDiscoverPlaylistTracks) => {
     if(!token) return;
 
     const myPlaylistTracks = await fetch(`${fetchURL}`, {
@@ -83,6 +83,6 @@ export const fetchAnything = async (token, fetchURL) => {
     })
 
     const data = await myPlaylistTracks.json();
-    console.log(data)
+    setDiscoverPlaylistTracks(data.items)
     return data;
 }

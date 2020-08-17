@@ -10,7 +10,7 @@ nav{
     line-height: 30px;
     text-transform: uppercase;
 }
-.navbar-logo a:hover{
+.navbar-logo a{
     color: var(--mainGreen);
     text-decoration: none;
 }

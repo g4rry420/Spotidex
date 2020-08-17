@@ -1,32 +1,15 @@
-import React, { useContext } from 'react'
+import React from 'react'
+import { Route, Switch } from "react-router-dom"
 
 import "./discover-playlist.styles.css"
-import { MainContext } from '../../context/mainContext/mainContext'
-import Heading from '../../components/heading/heading.component';
-import Items from '../../components/items/items.component';
-import { fetchAnything } from "../../api-fetching/api-fetching"
+import DiscoverPlaylistTracks from '../discover-playlist-tracks/discover-playlist-tracks.component';
+import DiscoverPlaylistContainer from '../../components/discover-playlist-container/discover-playlist-container.component';
 
 function DiscoverPlaylist(props) {
-    const { discoverPlaylist, token } = useContext(MainContext);
-    // console.log(discoverPlaylist)
-    // console.log(props)
     return (
-        <div className="container-fluid discover-playlist-main-container">
-            <Heading title={props.location.state.heading} heading="text-capitalize" display="display-4" />
-            <div className="container">
-                <div className="row">
-                {
-                    discoverPlaylist ? discoverPlaylist.map(playlist => (
-                        <Items key={playlist.id}
-                               path={`${props.match.url}/${playlist.id}`}
-                               url={playlist.images[0].url}
-                               onclick={() => fetchAnything(token ,playlist.tracks.href)} />
-                    )) : (
-                        <p>You donot have any of this.</p>
-                    )
-                }
-                </div>
-            </div>
+        <div>
+            <Route exact path={props.match.path} component={DiscoverPlaylistContainer} />
+            <Route path={`${props.match.path}/:tracks_id`} component={DiscoverPlaylistTracks} />
         </div>
     )
 }

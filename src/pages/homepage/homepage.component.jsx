@@ -15,6 +15,7 @@ export default function Homepage() {
 
     useEffect(() => {
         if(!list.current) return;
+        if(!userPlaylistTracks) return;
 
         list.current.filter(li => li.classList.remove("active-list"));
 
