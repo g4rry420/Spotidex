@@ -8,7 +8,6 @@ import Items from '../items/items.component';
 
 export default function DiscoverContainer(props) {
     const { token, discover,setDiscoverPlaylist } = useContext(MainContext)
-    console.log(props.match)
     return (
         <div className="container-fluid discover-main-container">
             <Heading title="Discover" display='display-4' />

@@ -5,7 +5,7 @@ import "./items.styles.css"
 
 export default function Items({ path,name, onclick, url }) {
     return (
-        <div className="col-md-3 col-sm-4 mb-3" onClick={onclick}>
+        <div className="col-md-3 col-sm-4 mb-3 column-md" onClick={onclick}>
             <Link to={{pathname:`${path}`, state:{ heading: name} }}>
                 <div className="items-container">
                     <div className="items-img-container">

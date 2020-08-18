@@ -3,10 +3,11 @@ import { v4 as uuidv4 } from "uuid";
 
 import "./homepage.styles.css"
 import { MainContext } from '../../context/mainContext/mainContext'
-import { myPlaylistTracks, fetchAnything } from "../../api-fetching/api-fetching"
+import { myPlaylistTracks } from "../../api-fetching/api-fetching"
+import TracksList from '../../components/tracks-list/tracks-list.component';
 
 export default function Homepage() {
-    const { token, userPlaylist, setUserPlaylistTracks, userPlaylistTracks } = useContext(MainContext);
+    const { token,userPlaylist, setUserPlaylistTracks, userPlaylistTracks } = useContext(MainContext);
 
     const list = useRef();
     if(userPlaylist){
@@ -23,12 +24,11 @@ export default function Homepage() {
         currentList[0].classList.add("active-list");
 
     }, [userPlaylistTracks])
-    console.log(userPlaylistTracks)
 
     return (
         <div className="container-fluid">
             <div className="row">
-                <div className="col-md-3">
+                <div className="col-md-3 left-homepage">
                     <aside>
                         <div className="d-flex justify-content-between font-weight-bold playlist-title">
                             <span>My Playlist</span>
@@ -54,39 +54,12 @@ export default function Homepage() {
                         </ul>
                     </aside>
                 </div>
-                <div className="col-md-7 center">
-                    <ul className="center-list-container">
-                    {
-                        userPlaylistTracks ? userPlaylistTracks.items.map(item => (
-                            <li key={uuidv4()} className="mb-2 p-2">
-                                <div className="img-wrapper">
-                                    <img src={item.track.album.images[1].url} alt="song"/>
-                                </div>
-                                <div className="song-content ml-2">
-                                    <div className="text-left track-details">
-                                    {
-                                        item.track.artists.map(artist => (
-                                            <span className="artist-name mr-2" key={uuidv4()}> {artist.name} </span>
-                                        ))
-                                    }
-                                        <div className="track-name"> {item.track.name} </div>
-                                    </div>
-                                    <div className="play-track">
-                                        <div className="play-icon">
-                                            <svg width="1em" height="1em" viewBox="0 0 16 16" className="bi bi-play-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M11.596 8.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/>
-                                            </svg>
-                                        </div>
-                                    </div>
-                                </div>  
-                            </li>
-                        )) : (
-                            <p>Loading...</p>
-                        )
-                    }
-                    </ul>
-                </div>
-                <div className="col-md-3">
+                {
+                    userPlaylistTracks ? <TracksList tracks={userPlaylistTracks.items} /> : (
+                        <p className="col-md-7"> Loading... </p>
+                    )
+                }
+                <div className="col-md-3 right-homepage">
                     right
                 </div>
             </div>

@@ -7,6 +7,8 @@ import Header from './components/header/header.component';
 import Login from './components/login/login.component';
 import { MainContext } from './context/mainContext/mainContext';
 import Homepage from './pages/homepage/homepage.component';
+import Artist from './pages/artist/artist.component';
+import AlbumTracks from './pages/album-tracks/album-tracks.component';
 
 function App() {
   const { token } = useContext(MainContext)
@@ -18,6 +20,8 @@ function App() {
                   <Header/>
                   <Route exact path="/" component={Homepage} />
                   <Route path="/discover" component={Discover} />
+                  <Route path="/artist" component={Artist} />
+                  <Route path="/album/:album_id" component={AlbumTracks} />
                 </>
       : <Login />
     }
