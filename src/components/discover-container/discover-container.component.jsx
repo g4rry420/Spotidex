@@ -3,8 +3,8 @@ import React, { useContext } from 'react'
 import "./discover-container.styles.css"
 import { MainContext } from '../../context/mainContext/mainContext';
 import { getCategoriesPlaylists, getCategories } from "../../api-fetching/api-fetching"
-import Heading from "../heading/heading.component"
-import Items from '../items/items.component';
+import Heading from "../../reusable/heading/heading.component"
+import Items from '../../reusable/items/items.component';
 
 export default function DiscoverContainer(props) {
     const { token, discover,setDiscoverPlaylist, setDiscover } = useContext(MainContext)

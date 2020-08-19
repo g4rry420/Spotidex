@@ -2,8 +2,8 @@ import React, { useContext } from 'react'
 
 import "./discover-playlist-container.styles.css"
 import { MainContext } from '../../context/mainContext/mainContext'
-import Heading from '../heading/heading.component';
-import Items from '../items/items.component';
+import Heading from "../../reusable/heading/heading.component"
+import Items from '../../reusable/items/items.component';
 import { fetchAnything } from "../../api-fetching/api-fetching"
 
 export default function DiscoverPlaylistContainer(props) {

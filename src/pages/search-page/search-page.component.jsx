@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"
 import "./search-page.styles.css"
 import { MainContext } from '../../context/mainContext/mainContext'
 import { fetchAnything } from "../../api-fetching/api-fetching"
-import TracksList from "../../components/tracks-list/tracks-list.component";
+import TracksList from '../../reusable/tracks-list/tracks-list.component';
 
 export default function SearchPage() {
     const {searchResult, searchValue, token, setArtistInfo, setPlaylistTracks } = useContext(MainContext);

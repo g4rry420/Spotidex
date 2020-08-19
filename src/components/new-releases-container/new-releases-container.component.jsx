@@ -1,10 +1,10 @@
 import React, { useContext, useState } from 'react'
 
 import "./new-releases-container.styles.css"
-import Heading from '../heading/heading.component'
 import { MainContext } from '../../context/mainContext/mainContext'
 import { fetchAnything } from '../../api-fetching/api-fetching';
-import Items from "../items/items.component"
+import Heading from "../../reusable/heading/heading.component"
+import Items from '../../reusable/items/items.component';
 
 export default function NewReleasesContainer(props) {
     const { token, newReleases, setNewReleases, setNewReleasesTracks } = useContext(MainContext);

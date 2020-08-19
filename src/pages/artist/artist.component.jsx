@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 import "./artist.styles.css"
 import { MainContext } from '../../context/mainContext/mainContext'
 import { fetchAnything } from '../../api-fetching/api-fetching';
-import TracksList from "../../components/tracks-list/tracks-list.component"
+import TracksList from '../../reusable/tracks-list/tracks-list.component';
 
 export default function Artist() {
     const [similarArtists, setSimilarArtists] = useState(null);

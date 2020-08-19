@@ -3,7 +3,7 @@ import React, { useContext, useRef, useEffect, useState } from 'react'
 import "./homepage.styles.css"
 import { MainContext } from '../../context/mainContext/mainContext'
 import { myPlaylistTracks, fetchAnything } from "../../api-fetching/api-fetching"
-import TracksList from '../../components/tracks-list/tracks-list.component';
+import TracksList from '../../reusable/tracks-list/tracks-list.component';
 
 export default function Homepage() {
     const [likedSongs, setLikedSongs] = useState(null);

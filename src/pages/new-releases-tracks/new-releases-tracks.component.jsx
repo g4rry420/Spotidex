@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 
 import "./new-releases-tracks.styles.css"
 import { MainContext } from '../../context/mainContext/mainContext'
-import TracksList from '../../components/tracks-list/tracks-list.component';
+import TracksList from '../../reusable/tracks-list/tracks-list.component';
 
 export default function NewReleasesTracks({ location: { state } }) {
     const { newReleasesTracks } = useContext(MainContext);

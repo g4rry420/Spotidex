@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState, useContext } from 'react'
+import React, { useRef, useEffect, useContext } from 'react'
 import { Link, withRouter } from 'react-router-dom'
 
 import "./header.styles.css"
@@ -27,6 +27,10 @@ function Header(props) {
     const handleSearch = (e) => {
         setSearchValue(e.target.value);
         props.history.push(`/search/${searchValue}`);
+
+        if(searchValue === "") {
+            props.history.push("/");
+        }
     }
 
     useEffect(() => {
