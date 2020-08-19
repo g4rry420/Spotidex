@@ -15,7 +15,7 @@ export default function TracksList({ tracks, className, albumImageUrl, albumArti
                 tracks ? tracks.map(item => (
                     <li key={uuidv4()} className="mb-2 p-2">
                         <div className="img-wrapper">
-                            <img src={item.track ? item.track.album.images[1].url : albumImageUrl ? albumImageUrl : item.album.images[1].url} alt="song"/>
+                            <img src={item.track ? item.track.album.images[1].url : item.album ? item.album.images[0].url : albumImageUrl} alt="song"/>
                         </div>
                         <div className="song-content ml-2">
                             <div className="text-left track-details">
@@ -40,9 +40,9 @@ export default function TracksList({ tracks, className, albumImageUrl, albumArti
                             </div>
                             <div className="play-track">
                                 <div className="play-icon">
-                                    <svg width="1em" height="1em" viewBox="0 0 16 16" className="bi bi-play-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M11.596 8.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/>
-                                    </svg>
+                                    <audio controls>
+                                        <source src={item.track ? item.track.preview_url : item.preview_url} type="audio/mpeg" />
+                                    </audio>
                                 </div>
                             </div>
                         </div>  

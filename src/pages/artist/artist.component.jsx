@@ -22,11 +22,10 @@ export default function Artist() {
             let fetchArtistAlbum = artistInfo.href + "/albums";
             fetchAnything(token, fetchArtistAlbum, setArtistAlbum);
 
-            let fetchTopTracksArtist = artistInfo.href + "/top-tracks" + "?country=CA";
+            let fetchTopTracksArtist = `${artistInfo.href}/top-tracks?country=CA`
             fetchAnything(token, fetchTopTracksArtist, setTopTracksArtist);
         }
     }, [artistInfo])
-    console.log(topTracksArtist);
     return (
         artistInfo ?
         <div className="container">
@@ -94,9 +93,9 @@ export default function Artist() {
                     </ul>
                 </div>
                 <div className="col-md-6 tracks-inform">
-                <div className="text-center">
-                    <h3>Top Tracks</h3>
-                </div>
+                    <div className="text-center">
+                        <h3>Top Tracks</h3>
+                    </div>
                 {
                     topTracksArtist ?  <TracksList tracks={topTracksArtist.tracks} /> : (
                         <p>Loading...</p>

@@ -1,17 +1,25 @@
-import React, { useContext, useRef, useEffect } from 'react'
-import { v4 as uuidv4 } from "uuid";
+import React, { useContext, useRef, useEffect, useState } from 'react'
 
 import "./homepage.styles.css"
 import { MainContext } from '../../context/mainContext/mainContext'
-import { myPlaylistTracks } from "../../api-fetching/api-fetching"
+import { myPlaylistTracks, fetchAnything } from "../../api-fetching/api-fetching"
 import TracksList from '../../components/tracks-list/tracks-list.component';
 
 export default function Homepage() {
+    const [likedSongs, setLikedSongs] = useState(null);
     const { token,userPlaylist, setUserPlaylistTracks, userPlaylistTracks } = useContext(MainContext);
 
     const list = useRef();
+
+    if(!likedSongs){
+        fetchAnything(token, "https://api.spotify.com/v1/me/tracks?limit=50", setLikedSongs)
+    }
+
     if(userPlaylist){
         list.current = new Array(userPlaylist.length);
+        if(!userPlaylistTracks) {
+            myPlaylistTracks(token, userPlaylist[0].id, setUserPlaylistTracks);
+        }
     }
 
     useEffect(() => {
@@ -44,10 +52,10 @@ export default function Homepage() {
                                 return(
                                 <li ref={el => list.current[idx] = el} id={item.id} className="" key={item.id} 
                                     onClick={() => myPlaylistTracks(token, item.id, setUserPlaylistTracks)}>
-                                    <a>
+                                    <div>
                                         <img src={item.images[0].url} alt="item"/>
                                         <p> {item.name} </p>
-                                    </a>
+                                    </div>
                                 </li>
                             )}) : <p>Loading..</p>
                         }

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, Switch } from "react-router-dom"
+import { Route } from "react-router-dom"
 
 import "./discover.styles.css"
 import DiscoverPlaylist from "../discover-playlist/discover-playlist.component"

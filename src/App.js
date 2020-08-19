@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Route, Switch } from "react-router-dom";
+import { Route } from "react-router-dom";
 
 import './App.css';
 import Discover from "./pages/discover/discover.component"
@@ -9,6 +9,9 @@ import { MainContext } from './context/mainContext/mainContext';
 import Homepage from './pages/homepage/homepage.component';
 import Artist from './pages/artist/artist.component';
 import AlbumTracks from './pages/album-tracks/album-tracks.component';
+import NewReleases from './pages/new-releases/new-releases.component';
+import SearchPage from './pages/search-page/search-page.component';
+import PlaylistTracks from './pages/playlist-tracks/playlist-tracks.component';
 
 function App() {
   const { token } = useContext(MainContext)
@@ -22,6 +25,9 @@ function App() {
                   <Route path="/discover" component={Discover} />
                   <Route path="/artist" component={Artist} />
                   <Route path="/album/:album_id" component={AlbumTracks} />
+                  <Route path="/new-releases" component={NewReleases} />
+                  <Route path="/search/:query" component={SearchPage} />
+                  <Route path="/playlist/:playlist_id" component={PlaylistTracks} />
                 </>
       : <Login />
     }

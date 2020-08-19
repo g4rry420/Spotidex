@@ -28,6 +28,7 @@ const MainContextProvider = (props) => {
     const scopes = [
     "user-read-currently-playing",
     "user-read-playback-state",
+    "user-library-read"
     ];
     
     const [token, setToken] = useState(null);
@@ -43,19 +44,25 @@ const MainContextProvider = (props) => {
 
     const [albumTracks, setAlbumTracks] = useState(null);
 
+    const [newReleases, setNewReleases] = useState(null);
+    const [newReleasesTracks, setNewReleasesTracks] = useState(null);
+
+    const [searchResult, setSearchResult] = useState(null);
+    const [searchValue, setSearchValue] = useState("");
+
+    const [playlistTracks, setPlaylistTracks] = useState(null);
+
     useEffect(() => {
         let _token = hash.access_token;
         console.log(_token)
         setToken(_token);
-        getCategories(token, setDiscover);
         myPlaylist(token, setUserPlaylist);
-
     }, [token])
 
 
     return (
         <MainContext.Provider 
-            value={{ albumTracks, setAlbumTracks,artistInfo, setArtistInfo,discoverPlaylistTracks, setDiscoverPlaylistTracks,userPlaylistTracks, setUserPlaylistTracks, userPlaylist,discoverPlaylist,setDiscoverPlaylist,discover,setDiscover, token,setToken, authEndPoint, clientId, redirectUri, scopes }}>
+            value={{ playlistTracks, setPlaylistTracks ,searchValue, setSearchValue,searchResult, setSearchResult,newReleasesTracks, setNewReleasesTracks ,newReleases, setNewReleases ,albumTracks, setAlbumTracks,artistInfo, setArtistInfo,discoverPlaylistTracks, setDiscoverPlaylistTracks,userPlaylistTracks, setUserPlaylistTracks, userPlaylist,discoverPlaylist,setDiscoverPlaylist,discover,setDiscover, token,setToken, authEndPoint, clientId, redirectUri, scopes }}>
             {props.children}
         </MainContext.Provider>
     )
