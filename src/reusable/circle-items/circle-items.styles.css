@@ -1,0 +1,31 @@
+.circle-items-container .text-center h3{
+    color: var(--mainGreen);
+}
+.circle-items{
+    list-style-type: none;
+    padding: 0;
+    flex-wrap: wrap;
+}
+.circle-items li {
+    justify-content: center;
+    align-items: center;
+}
+.circle-items li:hover{
+    color: var(--mainGreen);
+    cursor: pointer;
+    text-decoration: underline;
+}
+.circle-items li img{
+    width: 100%;
+    border-radius: 50%;
+    margin: 5px;
+    box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.363);
+}
+.circle-items li p {
+    font-size: 11px;
+}
+.circle-items li a:hover{
+    color: var(--mainGreen);
+    cursor: pointer;
+    text-decoration: underline;
+}

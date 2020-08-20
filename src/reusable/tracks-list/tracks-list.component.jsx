@@ -21,17 +21,17 @@ export default function TracksList({ tracks, className, albumImageUrl, albumArti
                             <div className="text-left track-details">
                             {
                                 item.track ? item.track.artists.map(artist => (
-                                    <Link onClick={() => fetchAnything(token, artist.href, setArtistInfo)} key={uuidv4()} className="artist-link" to="/artist">
+                                    <Link onClick={() => fetchAnything(token, artist.href, setArtistInfo)} key={uuidv4()} className="artist-link" to={`/artist/${artist.id}`}>
                                         <span  className="artist-name mr-2" > {artist.name} </span>
                                     </Link>
                                 )) : 
                                 albumArtists ? albumArtists.map(artist => (
-                                    <Link onClick={() => fetchAnything(token, artist.href, setArtistInfo)} key={uuidv4()} className="artist-link" to="/artist">
+                                    <Link onClick={() => fetchAnything(token, artist.href, setArtistInfo)} key={uuidv4()} className="artist-link" to={`/artist/${artist.id}`}>
                                         <span  className="artist-name mr-2" > {artist.name} </span>
                                     </Link>
                                 )) : 
                                 item.artists.map(artist => (
-                                    <Link onClick={() => fetchAnything(token, artist.href, setArtistInfo)} key={uuidv4()} className="artist-link" to="/artist">
+                                    <Link onClick={() => fetchAnything(token, artist.href, setArtistInfo)} key={uuidv4()} className="artist-link" to={`/artist/${artist.id}`}>
                                         <span  className="artist-name mr-2" > {artist.name} </span>
                                     </Link>
                                 ))    

@@ -1,6 +1,6 @@
 export const getCategories = async (token, setDiscover) => {
     if (!token) return;
-    console.log(token)
+    
     const categories = await fetch(`https://api.spotify.com/v1/browse/categories?limit=50`, {
         method: "GET",
         headers: {  
@@ -32,10 +32,10 @@ export const getCategoriesPlaylists = async(token, category_id, setDiscoverPlayl
     return data;
 }
 
-export const myPlaylist = async (token, setUserPlaylist) => {
+export const myPlaylist = async (token, setUserPlaylist, userId) => {
     if(!token) return;
 
-    const myPlaylist = await fetch(`https://api.spotify.com/v1/me/playlists?limit=50`, {
+    const myPlaylist = await fetch(`https://api.spotify.com/v1/users/${userId}/playlists?limit=50`, {
         method: "GET",
         headers: {
             "Accept": "application/json",
@@ -45,6 +45,7 @@ export const myPlaylist = async (token, setUserPlaylist) => {
     })
 
     const data = await myPlaylist.json();
+    console.log(data)
     setUserPlaylist(data.items);
     return data;
 }

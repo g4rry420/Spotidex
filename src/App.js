@@ -23,7 +23,7 @@ function App() {
                   <Header/>
                   <Route exact path="/" component={Homepage} />
                   <Route path="/discover" component={Discover} />
-                  <Route path="/artist" component={Artist} />
+                  <Route path="/artist/:artist_id" component={Artist} />
                   <Route path="/album/:album_id" component={AlbumTracks} />
                   <Route path="/new-releases" component={NewReleases} />
                   <Route path="/search/:query" component={SearchPage} />

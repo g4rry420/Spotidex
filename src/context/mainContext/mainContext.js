@@ -1,6 +1,6 @@
 import React,{ createContext, useState,useEffect } from 'react'
 
-import { getCategories, myPlaylist } from "../../api-fetching/api-fetching"
+import { myPlaylist, fetchAnything } from "../../api-fetching/api-fetching"
 
 
 // Get the hash of the url
@@ -28,10 +28,14 @@ const MainContextProvider = (props) => {
     const scopes = [
     "user-read-currently-playing",
     "user-read-playback-state",
-    "user-library-read"
+    "user-library-read",
+    "playlist-read-collaborative",
+    "playlist-read-private"
     ];
     
     const [token, setToken] = useState(null);
+
+    const [currentUser, setCurrentUser] = useState(null);
 
     const [discover, setDiscover] = useState(null);
     const [discoverPlaylist, setDiscoverPlaylist] = useState(null);
@@ -56,13 +60,20 @@ const MainContextProvider = (props) => {
         let _token = hash.access_token;
         console.log(_token)
         setToken(_token);
-        myPlaylist(token, setUserPlaylist);
+        fetchAnything(token, "https://api.spotify.com/v1/me", setCurrentUser);
     }, [token])
+
+
+    useEffect(() => {
+        if(currentUser){
+            myPlaylist(token, setUserPlaylist, currentUser.id);
+        }
+    }, [currentUser])
 
 
     return (
         <MainContext.Provider 
-            value={{ playlistTracks, setPlaylistTracks ,searchValue, setSearchValue,searchResult, setSearchResult,newReleasesTracks, setNewReleasesTracks ,newReleases, setNewReleases ,albumTracks, setAlbumTracks,artistInfo, setArtistInfo,discoverPlaylistTracks, setDiscoverPlaylistTracks,userPlaylistTracks, setUserPlaylistTracks, userPlaylist,discoverPlaylist,setDiscoverPlaylist,discover,setDiscover, token,setToken, authEndPoint, clientId, redirectUri, scopes }}>
+            value={{ currentUser,playlistTracks, setPlaylistTracks ,searchValue, setSearchValue,searchResult, setSearchResult,newReleasesTracks, setNewReleasesTracks ,newReleases, setNewReleases ,albumTracks, setAlbumTracks,artistInfo, setArtistInfo,discoverPlaylistTracks, setDiscoverPlaylistTracks,userPlaylistTracks, setUserPlaylistTracks, userPlaylist,discoverPlaylist,setDiscoverPlaylist,discover,setDiscover, token,setToken, authEndPoint, clientId, redirectUri, scopes }}>
             {props.children}
         </MainContext.Provider>
     )

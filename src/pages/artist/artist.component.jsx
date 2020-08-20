@@ -1,11 +1,11 @@
 import React, { useContext, useState, useEffect } from 'react'
-import { Link } from "react-router-dom"
 import { v4 as uuidv4 } from "uuid";
 
 import "./artist.styles.css"
 import { MainContext } from '../../context/mainContext/mainContext'
 import { fetchAnything } from '../../api-fetching/api-fetching';
 import TracksList from '../../reusable/tracks-list/tracks-list.component';
+import CircleItems from '../../reusable/circle-items/circle-items.component';
 
 export default function Artist() {
     const [similarArtists, setSimilarArtists] = useState(null);
@@ -50,48 +50,27 @@ export default function Artist() {
                         <h4>Popularity: <span> {artistInfo.popularity} </span></h4>
                     </div>
 
-                    <div className="similar-artists-container mt-5">
-                        <div className="text-center my-2 mb-4">
-                            <h5>Similar Artists</h5>
-                        </div>
-                        <ul className="similar-artists d-flex justify-content-between">
-                           { similarArtists ? similarArtists.artists.map(artist => (
-                               <li key={artist.id} className="d-flex flex-column" onClick={() => {
-                                   setArtistInfo(null);
-                                   fetchAnything(token, artist.href, setArtistInfo)}}>
-                                <img src={artist.images[0].url} alt="similar artist"/>
-                                <div className="text-center">
-                                    <p> {artist.name} </p>
-                                </div>
-                               </li>
-                           )) : (
-                                <p>Loading...</p>
-                            )}
-                        </ul>
-                    </div>
+                    <CircleItems title="Similar Artists"
+                                 path="artist"
+                                 className={`mt-5 similar-artists-container`} 
+                                 propsToMap={similarArtists ? similarArtists.artists : null}
+                                 onclick={() =>  setArtistInfo(null)}
+                                 setSTATE={setArtistInfo}
+                                 token={token} />
+
+                    
 
                 </div>
                 <div className="col-md-3 mx-5 album-inform">
-                    <div className="text-center">
-                            <h3>Albums</h3>
-                    </div>
-                    <ul className="artist-album d-flex justify-content-between">
-                    {
-                        artistAlbum ? artistAlbum.items.map(album => (
-                            <li onClick={() => fetchAnything(token, album.href,setAlbumTracks )} key={album.id} className="d-flex flex-column">
-                                <Link to={`/album/${album.id}`} >
-                                    <img src={album.images[0].url} alt="artist album"/>
-                                    <div className="text-center">
-                                        <p> {album.name} </p>
-                                    </div>
-                                </Link>
-                            </li>
-                        )) : (
-                            <p> Loading</p>
-                        )
-                    }
-                    </ul>
+
+                    <CircleItems  title="Albums"
+                                  path="album"
+                                  className="artist-album-container"
+                                  propsToMap={artistAlbum ? artistAlbum.items : null}
+                                  token={token}
+                                  setSTATE={setAlbumTracks}  />
                 </div>
+                
                 <div className="col-md-6 tracks-inform">
                     <div className="text-center">
                         <h3>Top Tracks</h3>
