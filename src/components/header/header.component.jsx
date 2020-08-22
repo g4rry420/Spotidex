@@ -8,7 +8,9 @@ import { fetchAnything } from '../../api-fetching/api-fetching';
 function Header(props) {
     const navLink = useRef();
 
-    const { token ,setSearchResult, searchValue, setSearchValue, currentUser, setToken } = useContext(MainContext);
+    const { token ,setSearchResult, searchValue, setSearchValue, currentUser} = useContext(MainContext);
+
+   
 
     useEffect(() => {
         if(!navLink.current) return;
@@ -26,21 +28,28 @@ function Header(props) {
 
     const handleSearch = (e) => {
         setSearchValue(e.target.value);
-        props.history.push(`/search/${searchValue}`);
-
-        if(searchValue === "") {
-            props.history.push("/");
-        }
     }
 
     useEffect(() => {
         const query = searchValue.split(" ").join("%20");
-        const type = "&type=artist%2Cplaylist%2Ctrack";
-        const fetch = `https://api.spotify.com/v1/search?q=${query}${type}`;
 
-        fetchAnything(token, fetch, setSearchResult);
+        props.history.push(`/search/${query}`);
+
+        if(searchValue.length){
+            const type = "&type=artist%2Cplaylist%2Ctrack";
+            const fetch = `https://api.spotify.com/v1/search?q=${query}${type}`;
+            fetchAnything(token, fetch, setSearchResult);
+        }
+
+        if(searchValue.length === 0) {
+            props.history.push("/");
+        }
 
     }, [searchValue])
+
+    // if(props.location.pathname === "/"){
+    //     setSearchValue("");
+    // }
 
     return (
         <nav>
@@ -64,15 +73,15 @@ function Header(props) {
                             <div className="user-profile">
                                 <h5>{currentUser.display_name}</h5>
                                 <svg width="1em" height="1em" viewBox="0 0 16 16" className="bi bi-chevron-down" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+                                    <path fillRule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
                                 </svg>
                             </div>
-                            <div className="dropdown-content" onClick={() => setToken(null)}>
+                            <div className="dropdown-content" onClick={() => window.location.reload()}>
                                     <span>Logout</span>
                             </div>
                         </div>
                     ) : (
-                        <p>Loading...</p>
+                        null
                     )
                 }
                 </div>

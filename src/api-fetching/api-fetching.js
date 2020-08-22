@@ -45,7 +45,6 @@ export const myPlaylist = async (token, setUserPlaylist, userId) => {
     })
 
     const data = await myPlaylist.json();
-    console.log(data)
     setUserPlaylist(data.items);
     return data;
 }

@@ -68,7 +68,7 @@ const MainContextProvider = (props) => {
         if(currentUser){
             myPlaylist(token, setUserPlaylist, currentUser.id);
         }
-    }, [currentUser])
+    }, [currentUser, token])
 
 
     return (

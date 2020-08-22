@@ -5,9 +5,19 @@ import { MainContext } from '../../context/mainContext/mainContext'
 import Heading from "../../reusable/heading/heading.component"
 import Items from '../../reusable/items/items.component';
 import { fetchAnything } from "../../api-fetching/api-fetching"
+import DualRing from "../dual-ring-spinner/dual-ring-spinner.component"
 
 export default function DiscoverPlaylistContainer(props) {
     const { discoverPlaylist, token, setDiscoverPlaylistTracks } = useContext(MainContext);
+    if(!discoverPlaylist) {
+        return(
+            <div className="container">
+                <div className="text-center">
+                    <DualRing />
+                </div>
+            </div>
+        )
+}
     return (
         <div className="container-fluid discover-playlist-main-container">
             <Heading title={props.location.state.heading} heading="text-capitalize" display="display-4" />
@@ -20,7 +30,7 @@ export default function DiscoverPlaylistContainer(props) {
                                url={playlist.images[0].url}
                                onclick={() => fetchAnything(token ,playlist.tracks.href, setDiscoverPlaylistTracks)} />
                     )) : (
-                        <p>You donot have any of this.</p>
+                        <DualRing />
                     )
                 }
                 </div>

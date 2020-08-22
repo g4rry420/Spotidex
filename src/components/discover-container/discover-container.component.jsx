@@ -5,11 +5,19 @@ import { MainContext } from '../../context/mainContext/mainContext';
 import { getCategoriesPlaylists, getCategories } from "../../api-fetching/api-fetching"
 import Heading from "../../reusable/heading/heading.component"
 import Items from '../../reusable/items/items.component';
+import DualRing from "../dual-ring-spinner/dual-ring-spinner.component"
 
 export default function DiscoverContainer(props) {
     const { token, discover,setDiscoverPlaylist, setDiscover } = useContext(MainContext)
     if(!discover){
       getCategories(token, setDiscover);
+      return(
+              <div className="container">
+                  <div className="text-center">
+                      <DualRing />
+                  </div>
+              </div>
+      )
     }
 
     return (

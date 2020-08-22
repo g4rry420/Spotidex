@@ -1,19 +1,15 @@
-import React, { useContext, useRef, useEffect, useState } from 'react'
+import React, { useContext, useRef, useEffect } from 'react'
 
 import "./homepage.styles.css"
 import { MainContext } from '../../context/mainContext/mainContext'
-import { myPlaylistTracks, fetchAnything } from "../../api-fetching/api-fetching"
+import { myPlaylistTracks } from "../../api-fetching/api-fetching"
 import TracksList from '../../reusable/tracks-list/tracks-list.component';
+import DualRing from '../../components/dual-ring-spinner/dual-ring-spinner.component';
 
 export default function Homepage() {
-    const [likedSongs, setLikedSongs] = useState(null);
     const { token,userPlaylist, setUserPlaylistTracks, userPlaylistTracks } = useContext(MainContext);
 
     const list = useRef();
-
-    if(!likedSongs){
-        fetchAnything(token, "https://api.spotify.com/v1/me/tracks?limit=50", setLikedSongs)
-    }
 
     if(userPlaylist){
         list.current = new Array(userPlaylist.length);
@@ -32,6 +28,16 @@ export default function Homepage() {
         currentList[0].classList.add("active-list");
 
     }, [userPlaylistTracks])
+
+    if(!userPlaylist && !userPlaylistTracks){
+        return(
+            <div className="container">
+                <div className="text-center">
+                    <DualRing />
+                </div>
+            </div>
+        )
+    }
 
     return (
         <div className="container-fluid">
@@ -55,16 +61,19 @@ export default function Homepage() {
                                     <div>
                                         <img src={item.images[0].url} alt="item"/>
                                         <p> {item.name} </p>
+                                        <span>{item.owner.display_name}</span>
                                     </div>
                                 </li>
-                            )}) : <p>Loading..</p>
+                            )}) : <DualRing />
                         }
                         </ul>
                     </aside>
                 </div>
                 {
                     userPlaylistTracks ? <TracksList tracks={userPlaylistTracks.items} /> : (
-                        <p className="col-md-7"> Loading... </p>
+                        <div className="text-center">
+                                <DualRing />
+                        </div>
                     )
                 }
                 <div className="col-md-3 right-homepage">
