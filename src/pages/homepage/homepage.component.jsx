@@ -10,6 +10,9 @@ export default function Homepage() {
     const { token,userPlaylist, setUserPlaylistTracks, userPlaylistTracks } = useContext(MainContext);
 
     const list = useRef();
+    const leftHomepage = useRef();
+
+    const defaultSongImage = "https://community.spotify.com/t5/image/serverpage/image-id/55829iC2AD64ADB887E2A5/image-size/large?v=1.0&px=999";
 
     if(userPlaylist){
         list.current = new Array(userPlaylist.length);
@@ -29,6 +32,10 @@ export default function Homepage() {
 
     }, [userPlaylistTracks])
 
+    const handleSideToggle = () => {
+        leftHomepage.current.classList.toggle("active-left-homepage");
+    }
+
     if(!userPlaylist && !userPlaylistTracks){
         return(
             <div className="container">
@@ -41,8 +48,13 @@ export default function Homepage() {
 
     return (
         <div className="container-fluid">
+            <div className="side-icon" onClick={handleSideToggle}>
+                <svg width="1em" height="1em" viewBox="0 0 16 16" className="bi bi-filter-left" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fillRule="evenodd" d="M2 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
+                </svg>
+            </div>
             <div className="row">
-                <div className="col-md-3 left-homepage">
+                <div ref={leftHomepage} className="col-md-3 left-homepage">
                     <aside>
                         <div className="d-flex justify-content-between font-weight-bold playlist-title">
                             <span>My Playlist</span>
@@ -57,9 +69,12 @@ export default function Homepage() {
                             userPlaylist ? userPlaylist.map((item, idx) =>  {
                                 return(
                                 <li ref={el => list.current[idx] = el} id={item.id} className="" key={item.id} 
-                                    onClick={() => myPlaylistTracks(token, item.id, setUserPlaylistTracks)}>
+                                    onClick={() => {
+                                        myPlaylistTracks(token, item.id, setUserPlaylistTracks)
+                                        leftHomepage.current.classList.remove("active-left-homepage");
+                                    }}>
                                     <div>
-                                        <img src={item.images[0].url} alt="item"/>
+                                        <img src={item.images[0] ? item.images[0].url : defaultSongImage} alt="item"/>
                                         <p> {item.name} </p>
                                         <span>{item.owner.display_name}</span>
                                     </div>
@@ -77,7 +92,7 @@ export default function Homepage() {
                     )
                 }
                 <div className="col-md-3 right-homepage">
-                    right
+                    
                 </div>
             </div>
         </div>

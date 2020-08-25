@@ -68,3 +68,23 @@
 .tracks-inform .center-tracks .center-list-container, .tracks-inform .center-tracks .center-list-container li{
     border: none;
 }
+
+@media only screen and (max-width: 700px){
+    .artist-main-img-container, .artist-main-img-container .artist-img-container img, 
+    .artist-main-img-container .artist-img-container .artist-fader{
+        width: 90vw;
+        height: 60vw;
+    }
+    .artist-main-img-container .artist-name{
+        font-size: 1.5rem;
+    }
+    .genre-container, .similar-artists-container {
+        width: 90vw;
+    }
+    .tracks-inform{
+        max-width: 100%;
+    }
+    .follower-container h4{
+        font-size: 1rem;
+    }
+}

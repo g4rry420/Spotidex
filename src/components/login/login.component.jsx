@@ -13,7 +13,8 @@ export default function Login() {
                     <h1 className="display-4 font-weight-bold text-white">Spotidex</h1>
                     <h2 className="display-5 my-5 font-weight-normal text-white">Discover a universe of music</h2>
                     <button className="btn mt-4 btn-login">
-                        <a className="font-weight-bold" href={`${authEndPoint}client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join("%20")}&response_type=token&show_dialog=true&state=123`}>
+                        <a className="font-weight-bold" 
+                                href={`${authEndPoint}client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join("%20")}&response_type=token&show_dialog=true&state=123`}>
                             Login to Spotify
                         </a>
                     </button>

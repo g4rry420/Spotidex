@@ -1,5 +1,6 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Route } from "react-router-dom";
+import Script from "react-load-script"
 
 import './App.css';
 import Discover from "./pages/discover/discover.component"
@@ -14,7 +15,7 @@ import SearchPage from './pages/search-page/search-page.component';
 import PlaylistTracks from './pages/playlist-tracks/playlist-tracks.component';
 
 function App() {
-  const { token } = useContext(MainContext)
+  const { token } = useContext(MainContext);
 
   return (
     <div className="App">

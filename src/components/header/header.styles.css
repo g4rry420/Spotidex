@@ -4,6 +4,12 @@ a{
 nav{
     background: #F3F5F7;
 }
+.nav-element{
+    background: var(--mainGreen);
+}
+.nav-element .navbar-logo a {
+    color: white;
+}
 .navbar-logo a{
     font-size: 2rem;
     font-weight: 700;
@@ -76,4 +82,123 @@ box-shadow: 0 0 0 .2rem rgba(47,213,102,.25);
     display: block;
     color: var(--mainGreen);
     cursor: pointer;
+}
+
+.burger-button{
+    position: fixed;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    top: 13px;
+    right: 1.618em;
+    display: block;
+    width: 50px;
+    height: 50px;
+    background: var(--mainGreen);
+    outline: 0;
+    padding: 0;
+    border: 2.5px solid transparent;
+    cursor: pointer;
+    z-index: 20;
+    box-sizing: border-box;
+    transition: all 500ms cubic-bezier(0.86, 0.01, 0.77, 0.78)
+}
+.burger-button:hover{
+    background: var(--carbon);
+}
+.burger-button .burger-lines{
+    display: inline-block;
+    width: 27px;
+    height: 4.2857142857px;
+    background: #fff;
+    transition: background .3s .5s ease;
+    position: relative;
+}
+.burger-button .burger-lines::before, .burger-button .burger-lines::after{
+    display: inline-block;
+    width: 27px;
+    height: 4.2857142857px;
+    background: #fff;
+    transition: .3s;
+    position: absolute;
+    left: 0;
+    content: '';
+    transform-origin: 50% 50%;
+    transition: top .3s .6s ease, transform .3s ease;
+}
+.burger-button .burger-lines::before{
+    top: 7.5px;
+}
+.burger-button .burger-lines::after{
+    top: -7.5px;
+    transform-origin: 50% 50%;
+    transition: top .3s .6s ease, transform .3s ease;
+}
+.burger-button-slide{
+    background: #2FD566;
+    transform: translateX(0)
+}
+.burger-button-close .burger-lines{
+    transition: background .3s 0s ease;
+    background: transparent;
+}
+.burger-button-close .burger-lines::before{
+    transform: rotate3d(0, 0, 1, 45deg);
+    top: 0;
+}
+.burger-button-close .burger-lines::after{
+    transform: rotate3d(0, 0, 1, -45deg);
+    transition: top .3s ease, transform .3s .5s ease;
+    top: 0;
+    width: 27px;
+}
+.mobile{
+    position: relative;
+}
+.nav-list-mobile {
+    display: none !important;
+    position: fixed;
+    list-style-type: none;
+    padding: 0;
+    align-items: center;
+    /* position: absolute; */
+    width: 100vw;
+    height: 100vh;
+    background: var(--mainGreen);
+    z-index: 15;
+}
+.nav-list-mobile-display {
+    display: initial !important;
+}
+.nav-list-mobile a{
+    font-weight: 600;
+    color: white;
+    text-decoration: none;
+}
+.nav-list-mobile li {
+    width: 100%;
+}
+.nav-list-mobile li:hover {
+    background: var(--carbon);
+    transition: background .3s 0s ease;
+}
+.nav-list-mobile a {
+    padding: 10px 104px;
+    display: block;
+    text-align: center;
+}
+.mobile{
+    display: none;
+}
+
+@media only screen and (max-width: 700px){
+    .nav-list-desktop, .search-bar, .user-profile-main-container{
+        display: none !important;
+    }
+    .navbar-logo a{
+        padding-left: 45%;
+        font-size: 1.8rem;
+    }
+    .mobile{
+        display: initial;
+    }
 }

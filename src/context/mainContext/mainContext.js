@@ -26,11 +26,11 @@ const MainContextProvider = (props) => {
     const clientId = "5c4e46e8acf24386bfe22be91378ff14";
     const redirectUri = "http://localhost:3000/";
     const scopes = [
-    "user-read-currently-playing",
-    "user-read-playback-state",
-    "user-library-read",
-    "playlist-read-collaborative",
-    "playlist-read-private"
+        "user-read-currently-playing",
+        "user-read-playback-state",
+        "user-library-read",
+        "playlist-read-collaborative",
+        "playlist-read-private"
     ];
     
     const [token, setToken] = useState(null);
@@ -56,11 +56,14 @@ const MainContextProvider = (props) => {
 
     const [playlistTracks, setPlaylistTracks] = useState(null);
 
+
+
     useEffect(() => {
         let _token = hash.access_token;
-        console.log(_token)
         setToken(_token);
         fetchAnything(token, "https://api.spotify.com/v1/me", setCurrentUser);
+        console.log(_token)
+
     }, [token])
 
 

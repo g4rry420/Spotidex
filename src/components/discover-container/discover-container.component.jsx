@@ -35,7 +35,7 @@ export default function DiscoverContainer(props) {
                              url={`${discover.icons[0].url}`} />
                     ))
                   ) : (
-                    <p>You do not have categoryies</p>
+                    <DualRing />
                   )
                 }
               </div>

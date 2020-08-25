@@ -44,7 +44,7 @@ export default function Artist() {
         artistInfo ?
         <div className="container">
              <div className="row">
-                <div className="col-md-3 artist-inform">
+                <div className="col-md-3 col-sm-6 col-12 artist-inform">
                     <div className="artist-main-img-container">
                         <div className="artist-img-container">
                             <img src={artistInfo.images[1] ? artistInfo.images[1].url : defaultImage} alt="artist"/>

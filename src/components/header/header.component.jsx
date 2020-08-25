@@ -7,10 +7,12 @@ import { fetchAnything } from '../../api-fetching/api-fetching';
 
 function Header(props) {
     const navLink = useRef();
+    const burgerButton = useRef();
+    const mobileLinks = useRef();
+    const navElement = useRef();
 
     const { token ,setSearchResult, searchValue, setSearchValue, currentUser} = useContext(MainContext);
 
-   
 
     useEffect(() => {
         if(!navLink.current) return;
@@ -47,12 +49,26 @@ function Header(props) {
 
     }, [searchValue])
 
-    // if(props.location.pathname === "/"){
-    //     setSearchValue("");
-    // }
+    const handleBurgerButton = () => {
+        navElement.current.classList.toggle("nav-element");
+
+        burgerButton.current.classList.toggle("burger-button-slide");
+        burgerButton.current.classList.toggle("burger-button-close");
+
+        mobileLinks.current.classList.toggle("nav-list-mobile-display");
+    }
+
+    const handleLink = () => {
+        navElement.current.classList.remove("nav-element");
+
+        burgerButton.current.classList.remove("burger-button-slide");
+        burgerButton.current.classList.remove("burger-button-close");
+
+        mobileLinks.current.classList.remove("nav-list-mobile-display");
+    }
 
     return (
-        <nav>
+        <nav ref={navElement}>
             <div className="container p-0 pt-4 pb-4 px-3 d-flex justify-content-between">
                 <div className="navbar-logo">
                     <Link to="/">Spotidex</Link>
@@ -66,7 +82,7 @@ function Header(props) {
                     <input className="form-control" type="text" value={searchValue} onChange={handleSearch} placeholder="Search" aria-label="Search" />
                 </div>
                
-                <div>
+                <div className="user-profile-main-container">
                 {
                     currentUser ? (
                         <div className="user-profile-container">
@@ -87,6 +103,17 @@ function Header(props) {
                 </div>
                 
             </div>
+            <div className="mobile">
+                <ul ref={mobileLinks} className="nav-list-mobile d-flex flex-column">
+                    <li><Link onClick={handleLink} to="/"> My&nbsp;Music </Link></li>
+                    <li><Link onClick={handleLink} to="/discover"> Discover </Link></li>
+                    <li><Link onClick={handleLink} to="/new-releases"> New&nbsp;Releases </Link></li>
+                </ul>
+                <button ref={burgerButton} className="burger-button" onClick={handleBurgerButton}>
+                    <span className="burger-lines"></span>
+                </button>
+            </div>
+
         </nav>
     )
 }

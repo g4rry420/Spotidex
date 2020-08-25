@@ -10,6 +10,13 @@ import DualRing from "../../components/dual-ring-spinner/dual-ring-spinner.compo
 export default function TracksList({ tracks, className, albumImageUrl, albumArtists }) {
     const { setArtistInfo,  token } = useContext(MainContext);
 
+    const defaultSongImage = "https://community.spotify.com/t5/image/serverpage/image-id/55829iC2AD64ADB887E2A5/image-size/large?v=1.0&px=999";
+
+
+    if(!albumImageUrl){
+        albumImageUrl = defaultSongImage
+    }
+
     return (
         <div className={`col-md-7 center-tracks ${className}`}>
             <ul className="center-list-container">
@@ -17,7 +24,7 @@ export default function TracksList({ tracks, className, albumImageUrl, albumArti
                 tracks ? tracks.map(item => (
                     <li key={uuidv4()} className="mb-2 p-2">
                         <div className="img-wrapper">
-                            <img  src={item.track ? item.track.album.images[1].url : item.album ? item.album.images[0].url : albumImageUrl}
+                            <img  src={item.track && item.track.album.images.length ? item.track.album.images[1].url : item.album ? item.album.images[0].url : albumImageUrl}
                                  alt="song"/>
                         </div>
                         <div className="song-content ml-2">
@@ -43,9 +50,7 @@ export default function TracksList({ tracks, className, albumImageUrl, albumArti
                             </div>
                             <div className="play-track">
                                 <div className="play-icon">
-                                    <audio  src={item.track ? item.track.preview_url : item.preview_url} controls>
-
-                                    </audio>
+                                    
                                 </div>
                             </div>
                         </div>  
@@ -58,3 +63,5 @@ export default function TracksList({ tracks, className, albumImageUrl, albumArti
         </div>
     )
 }
+// <audio  src={item.track ? item.track.preview_url : item.preview_url} controls>
+// </audio>

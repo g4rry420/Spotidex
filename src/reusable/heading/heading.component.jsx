@@ -6,7 +6,7 @@ export default function Heading({title,display, heading}) {
     return (
         <div className="main-heading">
             <div className="container">
-                <h1 className={`${display} font-weight-bold ${heading}`}>{title}</h1>
+                <h1 className={`${display} size-in-mobile font-weight-bold ${heading}`}>{title}</h1>
             </div>
         </div>
     )
