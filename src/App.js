@@ -1,6 +1,5 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { Route } from "react-router-dom";
-import Script from "react-load-script"
 
 import './App.css';
 import Discover from "./pages/discover/discover.component"

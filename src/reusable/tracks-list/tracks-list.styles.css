@@ -49,4 +49,18 @@
 }
 .play-track .play-icon svg{
     font-size: 35px;
+    cursor: pointer;
+}
+.play-track .play-icon svg path {
+    pointer-events: none;
+}
+.play-track .play-icon .bi-pause-fill{
+    cursor: pointer;
+    display: none;
+}
+.active-playpause{
+    display: initial !important;
+}
+.not-active-playpause{
+    display: none;
 }

@@ -4,6 +4,9 @@
 .playlist-title {
     font-size: 1.4rem;
 }
+.playlist-title .add-playlist svg{
+    /* cursor: pointer; */
+}
 .playlist-list-container,.center-list-container{
     list-style-type: none;
     padding: 0;
@@ -88,7 +91,7 @@
 
 @media only screen and (max-width: 700px){
     .left-homepage{
-        transform: translateX(-273px);
+        transform: translateX(-600px);
         position: fixed;
         top: 14%;
         z-index: 4;
@@ -103,5 +106,8 @@
     .active-left-homepage{
         transform: translateX(0px);
         transition: var(--mainT);
+    }
+    .track-details .track-name{
+        font-size: 15px;
     }
 }

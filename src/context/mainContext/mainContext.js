@@ -24,8 +24,12 @@ const MainContextProvider = (props) => {
 
     // Replace with your app's client ID, redirect URI and desired scopes
     const clientId = "5c4e46e8acf24386bfe22be91378ff14";
-    const redirectUri = "http://localhost:3000/";
+    let redirectUri = "";
+    if(process.env.NODE_ENV === "development") {
+        redirectUri += "http://localhost:3000/";
+    }
     const scopes = [
+        "streaming", "user-read-email", "user-read-private",
         "user-read-currently-playing",
         "user-read-playback-state",
         "user-library-read",
@@ -34,6 +38,7 @@ const MainContextProvider = (props) => {
     ];
     
     const [token, setToken] = useState(null);
+
 
     const [currentUser, setCurrentUser] = useState(null);
 
@@ -62,7 +67,6 @@ const MainContextProvider = (props) => {
         let _token = hash.access_token;
         setToken(_token);
         fetchAnything(token, "https://api.spotify.com/v1/me", setCurrentUser);
-        console.log(_token)
 
     }, [token])
 
@@ -71,6 +75,7 @@ const MainContextProvider = (props) => {
         if(currentUser){
             myPlaylist(token, setUserPlaylist, currentUser.id);
         }
+
     }, [currentUser, token])
 
 
