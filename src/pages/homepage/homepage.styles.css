@@ -88,6 +88,9 @@
     z-index: 5;
     transition: var(--mainT);
 }
+.setting-width ul li .song-content{
+    width: 42vw;
+}
 
 @media only screen and (max-width: 700px){
     .left-homepage{

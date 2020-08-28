@@ -8,21 +8,25 @@ import { MainContext } from '../../context/mainContext/mainContext';
 import DualRing from "../../components/dual-ring-spinner/dual-ring-spinner.component"
 
 export default function TracksList({ tracks, className, albumImageUrl, albumArtists }) {
-    const { setArtistInfo,  token } = useContext(MainContext);
+    const { setArtistInfo,  token, userPlaylist, currentUser } = useContext(MainContext);
 
     const [songPlay, setSongPlay] = useState(true);
     const [currentTrackId, setCurrentTrackId] = useState("");
+    const [currentPlaylistId, setCurrentPlaylistId] = useState("");
 
     const audioRef = useRef();
     const playButton = useRef();
     const pauseButton = useRef();
+    const addPlaylistRef = useRef();
 
     if(tracks) {
         audioRef.current = new Array(tracks.length);
         playButton.current = new Array(tracks.length);
         pauseButton.current = new Array(tracks.length);
+        addPlaylistRef.current = new Array(tracks.length);
     }
 
+    const userOwnedPlaylist = userPlaylist.filter(playlist => playlist.owner.display_name === currentUser.display_name)
 
 
     const defaultSongImage = "https://community.spotify.com/t5/image/serverpage/image-id/55829iC2AD64ADB887E2A5/image-size/large?v=1.0&px=999";
@@ -60,6 +64,33 @@ export default function TracksList({ tracks, className, albumImageUrl, albumArti
         currentPause[0].classList.remove("active-playpause");
     }
 
+    const handleAddToPlaylist = (e,item) => {
+        e.bubbles = false;
+        if(!(currentPlaylistId === (item.track ? item.track.id : item.id))){
+            setCurrentPlaylistId(item.track ? item.track.id : item.id);
+        }else{
+            setCurrentPlaylistId("");
+        }
+    }
+
+    const  handleTrackAddToPlaylist = (playlist, uris) => {
+        const fetchURL = `https://api.spotify.com/v1/playlists/${playlist.id}/tracks?position=0&uris=${uris}`
+        const method = "POST";
+        fetchAnything(token, fetchURL, method);
+        setCurrentPlaylistId("");
+    }
+
+    useEffect(() => {
+        if(!tracks) return;
+        if(!addPlaylistRef.current) return;
+
+        const currentPlaylist = addPlaylistRef.current.filter(playlist => playlist.id === currentPlaylistId);
+        if(!currentPlaylist[0]) return;
+
+        currentPlaylist[0].classList.add("active-add-to-playlist")
+
+    }, [currentPlaylistId])
+
     useEffect(() => {
         if(!tracks) return;
         if(!pauseButton.current) return;
@@ -68,6 +99,7 @@ export default function TracksList({ tracks, className, albumImageUrl, albumArti
         const currentAudio = audioRef.current.filter(audio => audio.id === currentTrackId);
         const currentPlay = playButton.current.filter(play => play.id === currentTrackId);
         const currentPause = pauseButton.current.filter(play => play.id === currentTrackId);
+        
 
         if(!currentAudio.length) return;
 
@@ -97,17 +129,17 @@ export default function TracksList({ tracks, className, albumImageUrl, albumArti
                             <div className="text-left track-details">
                             {
                                 item.track ? item.track.artists.map(artist => (
-                                    <Link onClick={() => fetchAnything(token, artist.href, setArtistInfo)} key={uuidv4()} className="artist-link" to={`/artist/${artist.id}`}>
+                                    <Link onClick={() => fetchAnything(token, artist.href, "GET", setArtistInfo)} key={uuidv4()} className="artist-link" to={`/artist/${artist.id}`}>
                                         <span  className="artist-name mr-2" > {artist.name} </span>
                                     </Link>
                                 )) : 
                                 albumArtists ? albumArtists.map(artist => (
-                                    <Link onClick={() => fetchAnything(token, artist.href, setArtistInfo)} key={uuidv4()} className="artist-link" to={`/artist/${artist.id}`}>
+                                    <Link onClick={() => fetchAnything(token, artist.href, "GET",setArtistInfo)} key={uuidv4()} className="artist-link" to={`/artist/${artist.id}`}>
                                         <span  className="artist-name mr-2" > {artist.name} </span>
                                     </Link>
                                 )) : 
                                 item.artists ? item.artists.map(artist => (
-                                    <Link onClick={() => fetchAnything(token, artist.href, setArtistInfo)} key={uuidv4()} className="artist-link" to={`/artist/${artist.id}`}>
+                                    <Link onClick={() => fetchAnything(token, artist.href, "GET", setArtistInfo)} key={uuidv4()} className="artist-link" to={`/artist/${artist.id}`}>
                                         <span  className="artist-name mr-2" > {artist.name} </span>
                                     </Link>
                                 ))  : null
@@ -125,11 +157,25 @@ export default function TracksList({ tracks, className, albumImageUrl, albumArti
                                         <path d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5zm5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5z"/>
                                     </svg>
 
-                                <input onChange={volumeChange} type="range" name="volume" min="0" max="1" step="0.10" />
-
+                                    <input className="slider" onChange={volumeChange} type="range" name="volume" min="0" max="1" step="0.10" />
                                 </div>
                             </div>
-                        </div>  
+                        </div>
+                        <div className="dropdown-playlist-container">
+                            <div onClick={(e) => handleAddToPlaylist(e,item)}>
+                                <svg width="1em" height="1em" viewBox="0 0 16 16" className="bi bi-three-dots" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fillRule="evenodd" d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>
+                                </svg>
+                            </div>
+                            <div id={item.track ? item.track.id : item.id} ref={el =>  addPlaylistRef.current[idx] = el}>
+                                <div>Add&nbsp;To&nbsp;Playlist&nbsp;&#8811;</div>
+                                {
+                                    userOwnedPlaylist.map(playlist => (
+                                        <span key={playlist.id} onClick={() => handleTrackAddToPlaylist(playlist, item.track ? item.track.uri : item.uri)}> {playlist.name} </span>
+                                    ))
+                                }
+                            </div>
+                    </div>  
                     </li>
                 )) : (
                     <DualRing />

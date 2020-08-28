@@ -42,7 +42,7 @@ export default function SearchPage() {
                         <h3>Top Tracks</h3>
                     </div>
                 {
-                    searchResult.tracks ?  <TracksList tracks={searchResult.tracks.items} albumImageUrl={defaultImage} /> : (
+                    searchResult.tracks ?  <TracksList tracks={searchResult.tracks.items} className="search-width" albumImageUrl={defaultImage} /> : (
                         <DualRing />
                     )
                 }

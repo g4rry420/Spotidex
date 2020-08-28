@@ -85,7 +85,7 @@ export default function Homepage() {
                     </aside>
                 </div>
                 {
-                    userPlaylistTracks ? <TracksList tracks={userPlaylistTracks.items} /> : (
+                    userPlaylistTracks ? <TracksList tracks={userPlaylistTracks.items} className="setting-width" /> : (
                         <div className="text-center">
                                 <DualRing />
                         </div>

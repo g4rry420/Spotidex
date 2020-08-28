@@ -1,0 +1,6 @@
+.margin-only-And-width{
+    margin: 0 auto;
+}
+.margin-only-And-width ul li .song-content{
+    width: 42vw;
+}

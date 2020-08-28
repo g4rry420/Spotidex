@@ -27,6 +27,8 @@ const MainContextProvider = (props) => {
     let redirectUri = "";
     if(process.env.NODE_ENV === "development") {
         redirectUri += "http://localhost:3000/";
+    }else if(process.env.NODE_ENV === "production") {
+        redirectUri += "https://spotidex.vercel.app/";
     }
     const scopes = [
         "streaming", "user-read-email", "user-read-private",
@@ -34,7 +36,9 @@ const MainContextProvider = (props) => {
         "user-read-playback-state",
         "user-library-read",
         "playlist-read-collaborative",
-        "playlist-read-private"
+        "playlist-read-private",
+        "playlist-modify-public",
+        "playlist-modify-private"
     ];
     
     const [token, setToken] = useState(null);
@@ -66,10 +70,29 @@ const MainContextProvider = (props) => {
     useEffect(() => {
         let _token = hash.access_token;
         setToken(_token);
-        fetchAnything(token, "https://api.spotify.com/v1/me", setCurrentUser);
+        console.log(_token)
+        fetchAnything(token, "https://api.spotify.com/v1/me", "GET", setCurrentUser);
+
+        // const script = document.createElement("script");
+        // script.src = "https://sdk.scdn.co/spotify-player.js";
+        // script.async = true;
+
+        // script.onload = () => {
+        //     window.onSpotifyWebPlaybackSDKReady = () => {
+        //         const player = window.Spotify.Player({
+        //           name: 'Web Playback SDK Quick Start Player',
+        //           getOAuthToken: cb => { cb(_token); }
+        //         });
+        //     }
+        // }
+
+        // document.body.appendChild(script);
+
+        // return(() => {
+        //     document.body.removeChild(script);
+        // })
 
     }, [token])
-
 
     useEffect(() => {
         if(currentUser){

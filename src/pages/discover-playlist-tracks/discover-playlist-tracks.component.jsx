@@ -21,7 +21,7 @@ export default function DiscoverPlaylistTracks() {
         <div className="container-fluid">
             <div className="row">
             {
-                discoverPlaylistTracks ? <TracksList tracks={discoverPlaylistTracks.items} className="margin-only" /> : (
+                discoverPlaylistTracks ? <TracksList tracks={discoverPlaylistTracks.items} className="margin-only-width" /> : (
                     <DualRing />
                 )
             }

@@ -90,7 +90,7 @@ export default function Artist() {
                         <h3>Top Tracks</h3>
                     </div>
                 {
-                    topTracksArtist ?  <TracksList tracks={topTracksArtist.tracks} /> : (
+                    topTracksArtist ?  <TracksList className="artist-width" tracks={topTracksArtist.tracks} /> : (
                         <DualRing />
                     )
                 }

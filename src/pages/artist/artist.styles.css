@@ -68,6 +68,9 @@
 .tracks-inform .center-tracks .center-list-container, .tracks-inform .center-tracks .center-list-container li{
     border: none;
 }
+.artist-width ul li .song-content{
+    width: 26vw;
+}
 
 @media only screen and (max-width: 700px){
     .artist-main-img-container, .artist-main-img-container .artist-img-container img, 

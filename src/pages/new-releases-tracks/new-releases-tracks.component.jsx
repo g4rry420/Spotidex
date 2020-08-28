@@ -25,7 +25,7 @@ export default function NewReleasesTracks({ location: { state } }) {
                 newReleasesTracks ? <TracksList 
                                         albumImageUrl={state.image} 
                                         tracks={newReleasesTracks.items} 
-                                        className="margin-only" /> : (
+                                        className="margin-only-And-width" /> : (
                    <DualRing />
                 )
             }
