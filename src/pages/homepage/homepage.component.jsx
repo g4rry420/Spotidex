@@ -7,7 +7,7 @@ import TracksList from '../../reusable/tracks-list/tracks-list.component';
 import DualRing from '../../components/dual-ring-spinner/dual-ring-spinner.component';
 
 export default function Homepage() {
-    const { token,userPlaylist, setUserPlaylistTracks, userPlaylistTracks } = useContext(MainContext);
+    const { token,userPlaylist, setUserPlaylistTracks, userPlaylistTracks, setSelectedPlaylistOwner } = useContext(MainContext);
 
     const list = useRef();
     const leftHomepage = useRef();
@@ -28,6 +28,8 @@ export default function Homepage() {
         list.current.filter(li => li.classList.remove("active-list"));
 
         const currentList = list.current.filter(li => li.id === userPlaylistTracks.id);
+        setSelectedPlaylistOwner(currentList[0].classList[0]);
+        
         currentList[0].classList.add("active-list");
 
     }, [userPlaylistTracks])
@@ -38,10 +40,8 @@ export default function Homepage() {
 
     if(!userPlaylist && !userPlaylistTracks){
         return(
-            <div className="container">
-                <div className="text-center">
-                    <DualRing />
-                </div>
+            <div className="text-center">
+                <DualRing />
             </div>
         )
     }
@@ -68,7 +68,7 @@ export default function Homepage() {
                         {
                             userPlaylist ? userPlaylist.map((item, idx) =>  {
                                 return(
-                                <li ref={el => list.current[idx] = el} id={item.id} className="" key={item.id} 
+                                <li ref={el => list.current[idx] = el} id={item.id} className={item.owner.display_name} key={item.id} 
                                     onClick={() => {
                                         myPlaylistTracks(token, item.id, setUserPlaylistTracks)
                                         leftHomepage.current.classList.remove("active-left-homepage");
@@ -85,10 +85,8 @@ export default function Homepage() {
                     </aside>
                 </div>
                 {
-                    userPlaylistTracks ? <TracksList tracks={userPlaylistTracks.items} className="setting-width" /> : (
-                        <div className="text-center">
-                                <DualRing />
-                        </div>
+                    userPlaylistTracks ? <TracksList tracks={userPlaylistTracks.items} className="setting-width">Remove&nbsp;Track</TracksList> : (
+                        null
                     )
                 }
                 <div className="col-md-3 right-homepage">

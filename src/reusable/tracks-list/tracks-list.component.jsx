@@ -7,8 +7,8 @@ import { fetchAnything } from '../../api-fetching/api-fetching';
 import { MainContext } from '../../context/mainContext/mainContext';
 import DualRing from "../../components/dual-ring-spinner/dual-ring-spinner.component"
 
-export default function TracksList({ tracks, className, albumImageUrl, albumArtists }) {
-    const { setArtistInfo,  token, userPlaylist, currentUser } = useContext(MainContext);
+export default function TracksList({ tracks, className, albumImageUrl, albumArtists, children }) {
+    const { setArtistInfo,  token, userPlaylist, currentUser, setSongAddedToPlaylist, notify, selectedPlaylistOwner, userPlaylistTracks,setDeletedSong } = useContext(MainContext);
 
     const [songPlay, setSongPlay] = useState(true);
     const [currentTrackId, setCurrentTrackId] = useState("");
@@ -74,10 +74,21 @@ export default function TracksList({ tracks, className, albumImageUrl, albumArti
     }
 
     const  handleTrackAddToPlaylist = (playlist, uris) => {
-        const fetchURL = `https://api.spotify.com/v1/playlists/${playlist.id}/tracks?position=0&uris=${uris}`
+        const fetchURL = `https://api.spotify.com/v1/playlists/${playlist.id}/tracks?position=0&uris=${uris}`;
         const method = "POST";
-        fetchAnything(token, fetchURL, method);
+        fetchAnything(token, fetchURL, method, setSongAddedToPlaylist);
         setCurrentPlaylistId("");
+        notify(`The song is added to the ${playlist.name}.`);
+    }
+
+    const handleDelete = (playlistId, uris, trackId) => {
+        const requestBody = `{\"tracks\":[{\"uri\":\"${uris}\"}]}`;
+
+        const fetchURL = `https://api.spotify.com/v1/playlists/${playlistId}/tracks`
+        const method = "DELETE";
+        userPlaylistTracks.items.filter(song => song.id !== trackId);
+        // fetchAnything(token, fetchURL, method, setDeletedSong, requestBody);
+        // notify(`The song is deleted from the playlist.`)
     }
 
     useEffect(() => {
@@ -114,6 +125,7 @@ export default function TracksList({ tracks, className, albumImageUrl, albumArti
     if(!albumImageUrl){
         albumImageUrl = defaultSongImage
     }
+
 
     return (
         <div className={`col-md-7 center-tracks ${className}`}>
@@ -173,6 +185,11 @@ export default function TracksList({ tracks, className, albumImageUrl, albumArti
                                     userOwnedPlaylist.map(playlist => (
                                         <span key={playlist.id} onClick={() => handleTrackAddToPlaylist(playlist, item.track ? item.track.uri : item.uri)}> {playlist.name} </span>
                                     ))
+                                }
+                                {
+                                    children && (selectedPlaylistOwner === currentUser.display_name) ? (
+                                        <button className="btn btn-danger" onClick={() => handleDelete(userPlaylistTracks.id, item.track ? item.track.uri : item.uri, item.track ? item.track.id : item.id)}>{children}</button>
+                                    ) : null
                                 }
                             </div>
                     </div>  

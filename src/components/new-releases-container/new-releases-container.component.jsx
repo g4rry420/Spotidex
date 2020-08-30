@@ -11,7 +11,7 @@ export default function NewReleasesContainer(props) {
     const { token, newReleases, setNewReleases, setNewReleasesTracks } = useContext(MainContext);
     
     if(!newReleases){
-        fetchAnything(token,"https://api.spotify.com/v1/browse/new-releases?limit=50", setNewReleases);
+        fetchAnything(token,"https://api.spotify.com/v1/browse/new-releases?limit=50","GET", setNewReleases);
           return(
               <div className="container">
                   <div className="text-center">
@@ -31,7 +31,7 @@ export default function NewReleasesContainer(props) {
                       newReleases.albums.items.map(release => (
                         <Items key={release.id}
                                path={`${props.match.url}/${release.id}`}
-                               onclick={() => fetchAnything(token, release.href + "/tracks", setNewReleasesTracks)}
+                               onclick={() => fetchAnything(token, release.href + "/tracks","GET", setNewReleasesTracks)}
                                url={`${release.images[0].url}`} />
                       ))
                     ) : (

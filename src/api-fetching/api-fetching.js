@@ -69,11 +69,12 @@ export const myPlaylistTracks = async (token, playlist_id, setUserPlaylistTracks
     return data;
 }
 
-export const fetchAnything = async (token, fetchURL,type, setState) => {
+export const fetchAnything = async (token, fetchURL,type, setState, body) => {
     if(!token) return;
 
     const myPlaylistTracks = await fetch(`${fetchURL}`, {
         method: type,
+        body: body ? body : null,
         headers: {
             "Accept": "application/json",
             "Content-type": "application/json",

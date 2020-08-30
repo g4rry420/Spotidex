@@ -12,15 +12,18 @@ import AlbumTracks from './pages/album-tracks/album-tracks.component';
 import NewReleases from './pages/new-releases/new-releases.component';
 import SearchPage from './pages/search-page/search-page.component';
 import PlaylistTracks from './pages/playlist-tracks/playlist-tracks.component';
+import Toastify from './components/toastify/toastify.component';
 
 function App() {
-  const { token } = useContext(MainContext);
+  const { token, songAddedToPlaylist,deletedSong } = useContext(MainContext);
+  console.log(deletedSong)
 
   return (
     <div className="App">
     {
       (token) ? <>
                   <Header/>
+                 { (songAddedToPlaylist || deletedSong) ? <Toastify toastText="The song is added to the selected playlist." /> : null}
                   <Route exact path="/" component={Homepage} />
                   <Route path="/discover" component={Discover} />
                   <Route path="/artist/:artist_id" component={Artist} />

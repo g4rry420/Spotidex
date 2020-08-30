@@ -1,4 +1,5 @@
 import React,{ createContext, useState,useEffect } from 'react'
+import { toast } from "react-toastify";
 
 import { myPlaylist, fetchAnything } from "../../api-fetching/api-fetching"
 
@@ -65,6 +66,22 @@ const MainContextProvider = (props) => {
 
     const [playlistTracks, setPlaylistTracks] = useState(null);
 
+    const [selectedPlaylistOwner, setSelectedPlaylistOwner] = useState("");
+
+    const [songAddedToPlaylist, setSongAddedToPlaylist] = useState(null);
+
+    const [deletedSong, setDeletedSong] = useState(null);
+
+    const notify = (toastText) => toast(toastText, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        })
+
 
 
     useEffect(() => {
@@ -104,7 +121,7 @@ const MainContextProvider = (props) => {
 
     return (
         <MainContext.Provider 
-            value={{ currentUser,playlistTracks, setPlaylistTracks ,searchValue, setSearchValue,searchResult, setSearchResult,newReleasesTracks, setNewReleasesTracks ,newReleases, setNewReleases ,albumTracks, setAlbumTracks,artistInfo, setArtistInfo,discoverPlaylistTracks, setDiscoverPlaylistTracks,userPlaylistTracks, setUserPlaylistTracks, userPlaylist,discoverPlaylist,setDiscoverPlaylist,discover,setDiscover, token,setToken, authEndPoint, clientId, redirectUri, scopes }}>
+            value={{ deletedSong, setDeletedSong,selectedPlaylistOwner, setSelectedPlaylistOwner,notify ,songAddedToPlaylist, setSongAddedToPlaylist,currentUser,playlistTracks, setPlaylistTracks ,searchValue, setSearchValue,searchResult, setSearchResult,newReleasesTracks, setNewReleasesTracks ,newReleases, setNewReleases ,albumTracks, setAlbumTracks,artistInfo, setArtistInfo,discoverPlaylistTracks, setDiscoverPlaylistTracks,userPlaylistTracks, setUserPlaylistTracks, userPlaylist,discoverPlaylist,setDiscoverPlaylist,discover,setDiscover, token,setToken, authEndPoint, clientId, redirectUri, scopes }}>
             {props.children}
         </MainContext.Provider>
     )

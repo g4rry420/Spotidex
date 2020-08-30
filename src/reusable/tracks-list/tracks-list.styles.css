@@ -45,6 +45,10 @@
 .track-details .track-name {
     color: #333333;
 }
+.play-track{
+    display: flex;
+    justify-content: space-between;
+}
 .play-track .play-icon{
     width: 22%;
 }
@@ -121,4 +125,7 @@
 }
 .active-add-to-playlist{
     display: initial !important;
+}
+.dropdown-playlist-container button{
+    font-size: 14px;
 }

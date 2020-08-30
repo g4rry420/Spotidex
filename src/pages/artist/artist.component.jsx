@@ -20,13 +20,13 @@ export default function Artist() {
     useEffect(() => {
         if(artistInfo){
             let fetchRelatedArtists = artistInfo.href + "/related-artists"
-            fetchAnything(token, fetchRelatedArtists , setSimilarArtists);
+            fetchAnything(token, fetchRelatedArtists, "GET", setSimilarArtists);
 
             let fetchArtistAlbum = artistInfo.href + "/albums";
-            fetchAnything(token, fetchArtistAlbum, setArtistAlbum);
+            fetchAnything(token, fetchArtistAlbum,"GET", setArtistAlbum);
 
             let fetchTopTracksArtist = `${artistInfo.href}/top-tracks?country=CA`
-            fetchAnything(token, fetchTopTracksArtist, setTopTracksArtist);
+            fetchAnything(token, fetchTopTracksArtist,"GET", setTopTracksArtist);
         }
     }, [artistInfo, token])
 

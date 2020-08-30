@@ -28,7 +28,7 @@ export default function DiscoverPlaylistContainer(props) {
                         <Items key={playlist.id}
                                path={`${props.match.url}/${playlist.id}`}
                                url={playlist.images[0].url}
-                               onclick={() => fetchAnything(token ,playlist.tracks.href, setDiscoverPlaylistTracks)} />
+                               onclick={() => fetchAnything(token ,playlist.tracks.href,"GET", setDiscoverPlaylistTracks)} />
                     )) : (
                         <DualRing />
                     )
