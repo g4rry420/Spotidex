@@ -15,8 +15,7 @@ export default function DiscoverPlaylistTracks() {
                 </div>
             </div>
         )
-}
-    console.log(discoverPlaylistTracks)
+    }
     return (
         <div className="container-fluid">
             <div className="row">

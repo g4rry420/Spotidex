@@ -64,7 +64,7 @@ export const myPlaylistTracks = async (token, playlist_id, setUserPlaylistTracks
     const data = await myPlaylistTracks.json();
     setUserPlaylistTracks({
         id: data.href.slice(37, 59),
-        items: [...data.items]
+        items: data.items
     })
     return data;
 }

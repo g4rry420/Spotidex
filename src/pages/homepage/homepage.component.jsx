@@ -28,6 +28,8 @@ export default function Homepage() {
         list.current.filter(li => li.classList.remove("active-list"));
 
         const currentList = list.current.filter(li => li.id === userPlaylistTracks.id);
+        if(!currentList[0]) return;
+        
         setSelectedPlaylistOwner(currentList[0].classList[0]);
         
         currentList[0].classList.add("active-list");

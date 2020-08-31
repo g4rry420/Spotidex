@@ -8,7 +8,7 @@ import { MainContext } from '../../context/mainContext/mainContext';
 import DualRing from "../../components/dual-ring-spinner/dual-ring-spinner.component"
 
 export default function TracksList({ tracks, className, albumImageUrl, albumArtists, children }) {
-    const { setArtistInfo,  token, userPlaylist, currentUser, setSongAddedToPlaylist, notify, selectedPlaylistOwner, userPlaylistTracks,setDeletedSong } = useContext(MainContext);
+    const { setArtistInfo,  token, userPlaylist, currentUser,songAddedToPlaylist ,setSongAddedToPlaylist , notify, selectedPlaylistOwner, userPlaylistTracks,setUserPlaylistTracks ,deletedSong ,setDeletedSong } = useContext(MainContext);
 
     const [songPlay, setSongPlay] = useState(true);
     const [currentTrackId, setCurrentTrackId] = useState("");
@@ -78,18 +78,54 @@ export default function TracksList({ tracks, className, albumImageUrl, albumArti
         const method = "POST";
         fetchAnything(token, fetchURL, method, setSongAddedToPlaylist);
         setCurrentPlaylistId("");
-        notify(`The song is added to the ${playlist.name}.`);
     }
 
     const handleDelete = (playlistId, uris, trackId) => {
-        const requestBody = `{\"tracks\":[{\"uri\":\"${uris}\"}]}`;
+        const requestBody = `{"tracks":[{"uri":"${uris}"}]}`;
 
         const fetchURL = `https://api.spotify.com/v1/playlists/${playlistId}/tracks`
         const method = "DELETE";
-        userPlaylistTracks.items.filter(song => song.id !== trackId);
-        // fetchAnything(token, fetchURL, method, setDeletedSong, requestBody);
-        // notify(`The song is deleted from the playlist.`)
+
+        
+        fetchAnything(token, fetchURL, method, setDeletedSong, requestBody);
+
+        setUserPlaylistTracks({
+            id: userPlaylistTracks.id,
+            items: userPlaylistTracks.items.filter(song => {
+                    if(song.track){
+                        return song.track.id !== trackId;
+                    }else{
+                        return song.id !== trackId;
+                    }
+            })
+        })
     }
+
+    useEffect(() => {
+        if(!deletedSong) return;
+
+        if(deletedSong.snapshot_id){
+            notify(`The song is deleted from the playlist.`)
+            // setDeletedSong(null);
+        }else if(deletedSong.error){
+            notify(`Something went Wrong. Message: ${deletedSong.error.message}`);
+            // setDeletedSong(null);
+        }
+
+    }, [deletedSong])
+
+    useEffect(() => {
+        if(!songAddedToPlaylist) return;
+
+        if(songAddedToPlaylist.snapshot_id){
+            notify(`The song is added to the playlist.`);
+            // setSongAddedToPlaylist(null);
+        }else if(songAddedToPlaylist.error){
+            notify(`Something went Wrong. Message: ${deletedSong.error.message}`);
+            // setSongAddedToPlaylist(null);
+        }
+
+    }, [songAddedToPlaylist])
 
     useEffect(() => {
         if(!tracks) return;
@@ -132,7 +168,7 @@ export default function TracksList({ tracks, className, albumImageUrl, albumArti
             <ul className="center-list-container">
             {
                 tracks ? tracks.map((item, idx) => (
-                    <li key={uuidv4()} className="mb-2 p-2">
+                    <li key={item.track ? item.track.id : item.id} className="mb-2 p-2">
                         <div className="img-wrapper">
                             <img  src={item.track && item.track.album.images.length ? item.track.album.images[1].url : item.album ? item.album.images[0].url : albumImageUrl}
                                  alt="song"/>
