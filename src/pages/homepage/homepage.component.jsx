@@ -5,12 +5,14 @@ import { MainContext } from '../../context/mainContext/mainContext'
 import { myPlaylistTracks } from "../../api-fetching/api-fetching"
 import TracksList from '../../reusable/tracks-list/tracks-list.component';
 import DualRing from '../../components/dual-ring-spinner/dual-ring-spinner.component';
+import Modal from '../../components/modal/modal.component';
 
 export default function Homepage() {
     const { token,userPlaylist, setUserPlaylistTracks, userPlaylistTracks, setSelectedPlaylistOwner } = useContext(MainContext);
 
     const list = useRef();
     const leftHomepage = useRef();
+    const modalRef = useRef();
 
     const defaultSongImage = "https://community.spotify.com/t5/image/serverpage/image-id/55829iC2AD64ADB887E2A5/image-size/large?v=1.0&px=999";
 
@@ -48,6 +50,16 @@ export default function Homepage() {
         )
     }
 
+    let currentPlaylist;
+    if(userPlaylistTracks){
+        currentPlaylist = userPlaylist.items.filter(item => item.id === userPlaylistTracks.id)
+    }
+    console.log(currentPlaylist)
+
+    const handleAddPlaylist = () => {
+        modalRef.current.classList.add("modal-active-state");
+    }
+
     return (
         <div className="container-fluid">
             <div className="side-icon" onClick={handleSideToggle}>
@@ -60,7 +72,7 @@ export default function Homepage() {
                     <aside>
                         <div className="d-flex justify-content-between font-weight-bold playlist-title">
                             <span>My Playlist</span>
-                            <div className="add-playlist">
+                            <div className="add-playlist" onClick={handleAddPlaylist}>
                                 <svg width="1em" height="1em" viewBox="0 0 16 16" className="bi bi-plus-square-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                     <path fillRule="evenodd" d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4a.5.5 0 0 0-1 0v3.5H4a.5.5 0 0 0 0 1h3.5V12a.5.5 0 0 0 1 0V8.5H12a.5.5 0 0 0 0-1H8.5V4z"/>
                                 </svg>
@@ -86,15 +98,34 @@ export default function Homepage() {
                         </ul>
                     </aside>
                 </div>
+
+                <div className="col-md-7">
+                    <div className="current-playlist-container">
+                        <div className="current-playlist-content">
+                            <div className="first-content">
+                                <h5>Playlist</h5>
+                                <h2 className="display-4"> {currentPlaylist ? currentPlaylist[0].name : null} </h2>
+                            </div>
+                            <div className="second-content">
+                                <span>Made by: {currentPlaylist ? currentPlaylist[0].owner.display_name : null}</span>
+                            </div>
+                        </div>
+                        <div className="current-playlist-image">
+                            <img src={currentPlaylist ? currentPlaylist[0].images[0].url : null} alt="current playlist"/>
+                        </div>
+                    </div>
                 {
                     userPlaylistTracks ? <TracksList tracks={userPlaylistTracks.items} className="setting-width">Remove&nbsp;Track</TracksList> : (
                         null
                     )
                 }
+                </div>
+
                 <div className="col-md-3 right-homepage">
                     
                 </div>
             </div>
+            <Modal modalRef={modalRef} />
         </div>
     )
 }

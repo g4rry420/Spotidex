@@ -15,14 +15,14 @@ import PlaylistTracks from './pages/playlist-tracks/playlist-tracks.component';
 import Toastify from './components/toastify/toastify.component';
 
 function App() {
-  const { token ,songAddedToPlaylist ,deletedSong  } = useContext(MainContext);
+  const { token ,songAddedToPlaylist ,deletedSong, createPlaylist  } = useContext(MainContext);
 
   return (
     <div className="App">
     {
       (token) ? <>
                   <Header/>
-                 { (!!songAddedToPlaylist || !!deletedSong) ? <Toastify /> : null}
+                 { (!!songAddedToPlaylist || !!deletedSong || !!createPlaylist) ? <Toastify /> : null}
                   <Route exact path="/" component={Homepage} />
                   <Route path="/discover" component={Discover} />
                   <Route path="/artist/:artist_id" component={Artist} />

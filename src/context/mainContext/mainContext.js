@@ -72,6 +72,8 @@ const MainContextProvider = (props) => {
 
     const [deletedSong, setDeletedSong] = useState(null);
 
+    const [createPlaylist, setCreatePlaylist] = useState(null);
+
     const notify = (toastText) => toast(toastText, {
         position: "top-right",
         autoClose: 5000,
@@ -121,7 +123,7 @@ const MainContextProvider = (props) => {
 
     return (
         <MainContext.Provider 
-            value={{ deletedSong, setDeletedSong,selectedPlaylistOwner, setSelectedPlaylistOwner,notify ,songAddedToPlaylist, setSongAddedToPlaylist,currentUser,playlistTracks, setPlaylistTracks ,searchValue, setSearchValue,searchResult, setSearchResult,newReleasesTracks, setNewReleasesTracks ,newReleases, setNewReleases ,albumTracks, setAlbumTracks,artistInfo, setArtistInfo,discoverPlaylistTracks, setDiscoverPlaylistTracks,userPlaylistTracks, setUserPlaylistTracks, userPlaylist,discoverPlaylist,setDiscoverPlaylist,discover,setDiscover, token,setToken, authEndPoint, clientId, redirectUri, scopes }}>
+            value={{ createPlaylist, setCreatePlaylist ,deletedSong, setDeletedSong,selectedPlaylistOwner, setSelectedPlaylistOwner,notify ,songAddedToPlaylist, setSongAddedToPlaylist,currentUser,playlistTracks, setPlaylistTracks ,searchValue, setSearchValue,searchResult, setSearchResult,newReleasesTracks, setNewReleasesTracks ,newReleases, setNewReleases ,albumTracks, setAlbumTracks,artistInfo, setArtistInfo,discoverPlaylistTracks, setDiscoverPlaylistTracks,userPlaylistTracks, setUserPlaylistTracks, userPlaylist,discoverPlaylist,setDiscoverPlaylist,discover,setDiscover, token,setToken, authEndPoint, clientId, redirectUri, scopes }}>
             {props.children}
         </MainContext.Provider>
     )

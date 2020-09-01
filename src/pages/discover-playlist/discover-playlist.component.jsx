@@ -13,7 +13,7 @@ function DiscoverPlaylist(props) {
     return (
         <div>
             <Route exact path={props.match.path} component={DiscoverPlaylistContainer} />
-            <Route path={`${props.match.path}/:tracks_id`} render={() => <TracksPage trackPage={discoverPlaylistTracks} />} />
+            <Route path={`${props.match.path}/:tracks_id`} render={(props) => <TracksPage trackPage={discoverPlaylistTracks} {...props} />} />
         </div>
     )
 }

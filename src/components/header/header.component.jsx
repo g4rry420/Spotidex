@@ -96,9 +96,7 @@ function Header(props) {
                                     <span>Logout</span>
                             </div>
                         </div>
-                    ) : (
-                        null
-                    )
+                    ) : null
                 }
                 </div>
                 
