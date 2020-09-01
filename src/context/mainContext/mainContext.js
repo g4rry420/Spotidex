@@ -113,7 +113,7 @@ const MainContextProvider = (props) => {
 
     useEffect(() => {
         if(currentUser){
-            myPlaylist(token, setUserPlaylist, currentUser.id);
+            fetchAnything(token, `https://api.spotify.com/v1/users/${currentUser.id}/playlists?limit=50`,"GET", setUserPlaylist)
         }
 
     }, [currentUser, token])

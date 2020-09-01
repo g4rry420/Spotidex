@@ -40,7 +40,7 @@ function Header(props) {
         if(searchValue.length){
             const type = "&type=artist%2Cplaylist%2Ctrack";
             const fetch = `https://api.spotify.com/v1/search?q=${query}${type}`;
-            fetchAnything(token, fetch, setSearchResult);
+            fetchAnything(token, fetch,"GET", setSearchResult);
         }
 
         if(searchValue.length === 0) {

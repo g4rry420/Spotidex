@@ -24,7 +24,7 @@ export default function DiscoverPlaylistContainer(props) {
             <div className="container">
                 <div className="row">
                 {
-                    discoverPlaylist ? discoverPlaylist.map(playlist => (
+                    !!discoverPlaylist ? discoverPlaylist.playlists.items.map(playlist => (
                         <Items key={playlist.id}
                                path={`${props.match.url}/${playlist.id}`}
                                url={playlist.images[0].url}

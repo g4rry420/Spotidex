@@ -15,9 +15,9 @@ export default function Homepage() {
     const defaultSongImage = "https://community.spotify.com/t5/image/serverpage/image-id/55829iC2AD64ADB887E2A5/image-size/large?v=1.0&px=999";
 
     if(userPlaylist){
-        list.current = new Array(userPlaylist.length);
+        list.current = new Array(userPlaylist.items.length);
         if(!userPlaylistTracks) {
-            myPlaylistTracks(token, userPlaylist[0].id, setUserPlaylistTracks);
+            myPlaylistTracks(token, userPlaylist.items[0].id, setUserPlaylistTracks);
         }
     }
 
@@ -68,7 +68,7 @@ export default function Homepage() {
                         </div>
                         <ul className="playlist-list-container">
                         {
-                            userPlaylist ? userPlaylist.map((item, idx) =>  {
+                            userPlaylist ? userPlaylist.items.map((item, idx) =>  {
                                 return(
                                 <li ref={el => list.current[idx] = el} id={item.id} className={item.owner.display_name} key={item.id} 
                                     onClick={() => {

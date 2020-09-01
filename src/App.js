@@ -15,7 +15,7 @@ import PlaylistTracks from './pages/playlist-tracks/playlist-tracks.component';
 import Toastify from './components/toastify/toastify.component';
 
 function App() {
-  const { token ,songAddedToPlaylist ,setSongAddedToPlaylist ,deletedSong ,setDeletedSong } = useContext(MainContext);
+  const { token ,songAddedToPlaylist ,deletedSong  } = useContext(MainContext);
 
   return (
     <div className="App">

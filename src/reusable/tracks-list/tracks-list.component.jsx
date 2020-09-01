@@ -10,7 +10,6 @@ import DualRing from "../../components/dual-ring-spinner/dual-ring-spinner.compo
 export default function TracksList({ tracks, className, albumImageUrl, albumArtists, children }) {
     const { setArtistInfo,  token, userPlaylist, currentUser,songAddedToPlaylist ,setSongAddedToPlaylist , notify, selectedPlaylistOwner, userPlaylistTracks,setUserPlaylistTracks ,deletedSong ,setDeletedSong } = useContext(MainContext);
 
-    const [songPlay, setSongPlay] = useState(true);
     const [currentTrackId, setCurrentTrackId] = useState("");
     const [currentPlaylistId, setCurrentPlaylistId] = useState("");
 
@@ -26,19 +25,16 @@ export default function TracksList({ tracks, className, albumImageUrl, albumArti
         addPlaylistRef.current = new Array(tracks.length);
     }
 
-    const userOwnedPlaylist = userPlaylist.filter(playlist => playlist.owner.display_name === currentUser.display_name)
+    const userOwnedPlaylist = userPlaylist.items.filter(playlist => playlist.owner.display_name === currentUser.display_name)
 
 
     const defaultSongImage = "https://community.spotify.com/t5/image/serverpage/image-id/55829iC2AD64ADB887E2A5/image-size/large?v=1.0&px=999";
 
     const handlePlay = (item) => {
-
-        setSongPlay(!songPlay);
         setCurrentTrackId(item.track ? item.track.id : item.id);
     }
 
     const handlePause = (e) => {
-        setSongPlay(!songPlay);
         setCurrentTrackId("");
 
         const currentPlay = playButton.current.filter(play => play.id === currentTrackId);
@@ -106,10 +102,10 @@ export default function TracksList({ tracks, className, albumImageUrl, albumArti
 
         if(deletedSong.snapshot_id){
             notify(`The song is deleted from the playlist.`)
-            // setDeletedSong(null);
+            setTimeout(() => setDeletedSong(null), 7000);
         }else if(deletedSong.error){
             notify(`Something went Wrong. Message: ${deletedSong.error.message}`);
-            // setDeletedSong(null);
+            setTimeout(() => setDeletedSong(null), 7000);
         }
 
     }, [deletedSong])
@@ -119,10 +115,10 @@ export default function TracksList({ tracks, className, albumImageUrl, albumArti
 
         if(songAddedToPlaylist.snapshot_id){
             notify(`The song is added to the playlist.`);
-            // setSongAddedToPlaylist(null);
+            setTimeout(() => setSongAddedToPlaylist(null), 7000);
         }else if(songAddedToPlaylist.error){
             notify(`Something went Wrong. Message: ${deletedSong.error.message}`);
-            // setSongAddedToPlaylist(null);
+            setTimeout(() => setSongAddedToPlaylist(null), 7000);
         }
 
     }, [songAddedToPlaylist])
@@ -168,7 +164,7 @@ export default function TracksList({ tracks, className, albumImageUrl, albumArti
             <ul className="center-list-container">
             {
                 tracks ? tracks.map((item, idx) => (
-                    <li key={item.track ? item.track.id : item.id} className="mb-2 p-2">
+                    <li key={uuidv4()} className="mb-2 p-2">
                         <div className="img-wrapper">
                             <img  src={item.track && item.track.album.images.length ? item.track.album.images[1].url : item.album ? item.album.images[0].url : albumImageUrl}
                                  alt="song"/>

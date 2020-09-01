@@ -77,12 +77,12 @@ export default function Artist() {
                 </div>
                 <div className="col-md-3 mx-5 album-inform">
 
-                    <CircleItems  title="Albums"
-                                  path="album"
-                                  className="artist-album-container"
-                                  propsToMap={artistAlbum ? artistAlbum.items : null}
-                                  token={token}
-                                  setSTATE={setAlbumTracks}  />
+                    <CircleItems title="Albums"
+                                 path="album"
+                                 className="artist-album-container"
+                                 propsToMap={artistAlbum ? artistAlbum.items : null}
+                                 token={token}
+                                 setSTATE={setAlbumTracks} />
                 </div>
                 
                 <div className="col-md-6 tracks-inform">

@@ -17,7 +17,7 @@ export default function CircleItems({ title, propsToMap, className, token, setST
             <ul className="circle-items d-flex justify-content-between">
                 { propsToMap ? propsToMap.map(item => (
                     <li key={item.id} className="d-flex flex-column" onClick={onclick} onClick={() => {
-                        fetchAnything(token, item.href, setSTATE );
+                        fetchAnything(token, item.href,"GET", setSTATE );
                     }}>
                         <Link to={`/${path}/${item.id}`}>
                             <img src={item.images[0] ? item.images[0].url : defaultImage} alt="circle item"/>
