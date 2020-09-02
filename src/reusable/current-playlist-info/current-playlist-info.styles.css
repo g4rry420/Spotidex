@@ -37,6 +37,7 @@
     }
     .current-playlist-container .current-playlist-image{
         width: 100%;
+        margin-bottom: 12%;
     }
     .current-playlist-content .first-content h2{
         font-size: 2rem;
