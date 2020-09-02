@@ -1,0 +1,25 @@
+.ErrorImageOverlay{
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
+    /* background-color: rgb(131, 217, 200); */
+    background-color: var(--bgColor);
+    position: fixed;
+    color: var(--mainGreen);
+}
+.ErrorImageContainer{
+    display: inline-block;
+    background-image: url("https://i.imgur.com/A040Lxr.png");
+    background-size: cover;
+    background-position: center;
+    width: 40vh;
+    height: 40vh;
+}
+.ErrorImageText{
+    font-size: 28px;
+    /* color: rgb(92, 119, 172); */
+    color: var(--mainGreen);
+}

@@ -89,27 +89,7 @@ const MainContextProvider = (props) => {
     useEffect(() => {
         let _token = hash.access_token;
         setToken(_token);
-        console.log(_token)
         fetchAnything(token, "https://api.spotify.com/v1/me", "GET", setCurrentUser);
-
-        // const script = document.createElement("script");
-        // script.src = "https://sdk.scdn.co/spotify-player.js";
-        // script.async = true;
-
-        // script.onload = () => {
-        //     window.onSpotifyWebPlaybackSDKReady = () => {
-        //         const player = window.Spotify.Player({
-        //           name: 'Web Playback SDK Quick Start Player',
-        //           getOAuthToken: cb => { cb(_token); }
-        //         });
-        //     }
-        // }
-
-        // document.body.appendChild(script);
-
-        // return(() => {
-        //     document.body.removeChild(script);
-        // })
 
     }, [token])
 

@@ -119,4 +119,7 @@
     .track-details .track-name{
         font-size: 15px;
     }
+    .setting-width ul li .song-content{
+        width: 49vw;
+    }
 }

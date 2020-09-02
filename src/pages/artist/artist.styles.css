@@ -90,4 +90,10 @@
     .follower-container h4{
         font-size: 1rem;
     }
+    .artist-width{
+        padding: 0;
+    }
+    .artist-width ul li .song-content{
+        width: 42vw;
+    }
 }
