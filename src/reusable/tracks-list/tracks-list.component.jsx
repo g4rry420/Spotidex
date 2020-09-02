@@ -87,6 +87,12 @@ export default function TracksList({ tracks, className, albumImageUrl, albumArti
 
         setUserPlaylistTracks({
             id: userPlaylistTracks.id,
+            name: userPlaylistTracks.name,
+            type: userPlaylistTracks.type,
+            owner: userPlaylistTracks.owner,
+            images: userPlaylistTracks.images.length ? userPlaylistTracks.images : defaultSongImage,
+            description: userPlaylistTracks.description,
+            followers: userPlaylistTracks.followers,
             items: userPlaylistTracks.items.filter(song => {
                     if(song.track){
                         return song.track.id !== trackId;
@@ -202,6 +208,7 @@ export default function TracksList({ tracks, className, albumImageUrl, albumArti
                                     </svg>
 
                                     <input className="slider" onChange={volumeChange} type="range" name="volume" min="0" max="1" step="0.10" />
+                                    
                                 </div>
                             </div>
                         </div>

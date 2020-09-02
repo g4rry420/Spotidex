@@ -94,32 +94,8 @@
 .setting-width ul li .song-content{
     width: 42vw;
 }
-.current-playlist-container{
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    padding: 23px;
-    background: var(--mainGreen);
-    color: white;
-    border-left: 1px solid var(--mainGreen);
-    border-right: 1px solid var(--mainGreen);
-}
-.current-playlist-container .current-playlist-image{
-    width: 30%;
-}
-.current-playlist-container .current-playlist-image img{
-    width: 100%;
-}
-.current-playlist-content{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-.current-playlist-content .first-content h2{
-    font-weight: 600;
-}
-.current-playlist-content .second-content span{
-    display: block;
+.padding-in-homepage{
+    padding: 0;
 }
 
 @media only screen and (max-width: 700px){

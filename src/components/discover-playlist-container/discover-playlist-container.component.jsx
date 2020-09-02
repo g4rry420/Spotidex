@@ -17,7 +17,9 @@ export default function DiscoverPlaylistContainer(props) {
                 </div>
             </div>
         )
-}
+    }
+
+
     return (
         <div className="container-fluid discover-playlist-main-container">
             <Heading title={props.location.state.heading} heading="text-capitalize" display="display-4" />
@@ -28,7 +30,7 @@ export default function DiscoverPlaylistContainer(props) {
                         <Items key={playlist.id}
                                path={`${props.match.url}/${playlist.id}`}
                                url={playlist.images[0].url}
-                               onclick={() => fetchAnything(token ,playlist.tracks.href,"GET", setDiscoverPlaylistTracks)} />
+                               onclick={() => fetchAnything(token ,playlist.href,"GET", setDiscoverPlaylistTracks)} />
                     )) : (
                         <DualRing />
                     )

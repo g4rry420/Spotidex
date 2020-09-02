@@ -22,6 +22,7 @@
 }
 .center-list-container li .img-wrapper img{
     width: 100%;
+    height: 100%;
 }
 .song-content{
     display: flex;
@@ -64,7 +65,7 @@
 .play-track .play-icon .slider {
     -webkit-appearance: none;
     cursor: pointer;
-    height: 15px;
+    height: 7px;
     border-radius: 5px;
     background: var(--mainGreen);
     outline: none;
@@ -128,4 +129,16 @@
 }
 .dropdown-playlist-container button{
     font-size: 14px;
+}
+
+@media only screen and (max-width: 700px){
+    .track-details .track-name{
+        font-size: 12px;
+    }
+    .song-content .artist-name{
+        font-size: 10px;
+    }
+    .center-list-container li .img-wrapper{
+        width: 25%;
+    }
 }

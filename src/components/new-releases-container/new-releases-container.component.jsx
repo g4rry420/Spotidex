@@ -31,6 +31,9 @@ export default function NewReleasesContainer(props) {
                       newReleases.albums.items.map(release => (
                         <Items key={release.id}
                                path={`${props.match.url}/${release.id}`}
+                               heading={release.name}
+                               type={release.album_type}
+                               release_date={release.release_date}
                                onclick={() => fetchAnything(token, release.href + "/tracks","GET", setNewReleasesTracks)}
                                url={`${release.images[0].url}`} />
                       ))

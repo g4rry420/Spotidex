@@ -6,6 +6,7 @@ import { myPlaylistTracks } from "../../api-fetching/api-fetching"
 import TracksList from '../../reusable/tracks-list/tracks-list.component';
 import DualRing from '../../components/dual-ring-spinner/dual-ring-spinner.component';
 import Modal from '../../components/modal/modal.component';
+import CurrentPlaylistInfo from '../../reusable/current-playlist-info/current-playlist-info.component';
 
 export default function Homepage() {
     const { token,userPlaylist, setUserPlaylistTracks, userPlaylistTracks, setSelectedPlaylistOwner } = useContext(MainContext);
@@ -18,8 +19,8 @@ export default function Homepage() {
 
     if(userPlaylist){
         list.current = new Array(userPlaylist.items.length);
-        if(!userPlaylistTracks) {
-            myPlaylistTracks(token, userPlaylist.items[0].id, setUserPlaylistTracks);
+        if(!userPlaylistTracks && userPlaylist) {
+            myPlaylistTracks(token, userPlaylist.items[0].href, setUserPlaylistTracks);
         }
     }
 
@@ -50,12 +51,6 @@ export default function Homepage() {
         )
     }
 
-    let currentPlaylist;
-    if(userPlaylistTracks){
-        currentPlaylist = userPlaylist.items.filter(item => item.id === userPlaylistTracks.id)
-    }
-    console.log(currentPlaylist)
-
     const handleAddPlaylist = () => {
         modalRef.current.classList.add("modal-active-state");
     }
@@ -84,7 +79,7 @@ export default function Homepage() {
                                 return(
                                 <li ref={el => list.current[idx] = el} id={item.id} className={item.owner.display_name} key={item.id} 
                                     onClick={() => {
-                                        myPlaylistTracks(token, item.id, setUserPlaylistTracks)
+                                        myPlaylistTracks(token, item.href, setUserPlaylistTracks)
                                         leftHomepage.current.classList.remove("active-left-homepage");
                                     }}>
                                     <div>
@@ -99,21 +94,12 @@ export default function Homepage() {
                     </aside>
                 </div>
 
-                <div className="col-md-7">
-                    <div className="current-playlist-container">
-                        <div className="current-playlist-content">
-                            <div className="first-content">
-                                <h5>Playlist</h5>
-                                <h2 className="display-4"> {currentPlaylist ? currentPlaylist[0].name : null} </h2>
-                            </div>
-                            <div className="second-content">
-                                <span>Made by: {currentPlaylist ? currentPlaylist[0].owner.display_name : null}</span>
-                            </div>
-                        </div>
-                        <div className="current-playlist-image">
-                            <img src={currentPlaylist ? currentPlaylist[0].images[0].url : null} alt="current playlist"/>
-                        </div>
-                    </div>
+                <div className="col-md-7 padding-in-homepage">
+                {
+                    userPlaylistTracks ? (
+                        <CurrentPlaylistInfo playlist={userPlaylistTracks} />
+                    ) : null
+                }
                 {
                     userPlaylistTracks ? <TracksList tracks={userPlaylistTracks.items} className="setting-width">Remove&nbsp;Track</TracksList> : (
                         null

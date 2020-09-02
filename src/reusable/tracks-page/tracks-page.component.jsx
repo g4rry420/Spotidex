@@ -3,6 +3,8 @@ import React from 'react'
 import "./tracks-page.styles.css"
 import TracksList from '../tracks-list/tracks-list.component';
 import DualRing from "../../components/dual-ring-spinner/dual-ring-spinner.component"
+import CurrentPlaylistInfo from "../current-playlist-info/current-playlist-info.component"
+
 
 export default function TracksPage({ trackPage, location: { state } }) {
 
@@ -19,11 +21,15 @@ export default function TracksPage({ trackPage, location: { state } }) {
     return (
         <div className="container-fluid">
             <div className="row">
-            {
-                trackPage ? <TracksList albumImageUrl={state ? state.image : null} tracks={trackPage.items} className="margin-only-width" /> : (
-                    <DualRing />
-                )
-            }
+                <div className="col-md-7 margin-only-width">
+                    <CurrentPlaylistInfo playlist={trackPage} state={state} />
+                {
+                    trackPage ? <TracksList albumImageUrl={trackPage.images ? trackPage.images[0].url : state.image} 
+                                    tracks={trackPage.tracks ? trackPage.tracks.items : trackPage.items} className="setting-width" /> : (
+                        <DualRing />
+                    )
+                }
+                </div>
             </div>
         </div>
     )

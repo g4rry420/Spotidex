@@ -1,7 +1,7 @@
 import React,{ createContext, useState,useEffect } from 'react'
 import { toast } from "react-toastify";
 
-import { myPlaylist, fetchAnything } from "../../api-fetching/api-fetching"
+import { fetchAnything } from "../../api-fetching/api-fetching"
 
 
 // Get the hash of the url
