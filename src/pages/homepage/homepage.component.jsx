@@ -19,7 +19,7 @@ export default function Homepage() {
 
     if(userPlaylist){
         list.current = new Array(userPlaylist.items.length);
-        if(!userPlaylistTracks && userPlaylist) {
+        if(!userPlaylistTracks && userPlaylist && userPlaylist.items.length) {
             myPlaylistTracks(token, userPlaylist.items[0].href, setUserPlaylistTracks);
         }
     }
